@@ -21,6 +21,8 @@ def index():
     return dict(message=T('Hello World'))
 
 def login():
+    """ 
+    """
     name = request.vars.username
     password = request.vars.password
     #myDB = DAL('mysql://root:Admin123@localhost/bookmarks')
