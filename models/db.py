@@ -8,7 +8,11 @@
 ## if SSL/HTTPS is properly configured and you want all HTTP requests to
 ## be redirected to HTTPS, uncomment the line below:
 # request.requires_https()
-
+#myDB = DAL('sqlite://bookmark.sqlite',pool_size=1,check_reserved=['all'])
+myDB = DAL('mysql://root:Admin123@localhost/bookmarks')
+myDB.define_table('credentials', Field('user_id', 'id'), Field('username', requires=IS_NOT_EMPTY()) , Field('password', 'password'))
+myDB.define_table('personal_details', Field('pid','id'), Field('user_id', 'reference credentials'), Field('First_Name', requires=IS_NOT_EMPTY()), Field('Last_Name'), Field('Email', requires=IS_NOT_EMPTY()))
+myDB.define_table('links', Field('url'))
 if not request.env.web2py_runtime_gae:
     ## if NOT running on Google App Engine use SQLite or other DB
     db = DAL('sqlite://storage.sqlite',pool_size=1,check_reserved=['all'])
