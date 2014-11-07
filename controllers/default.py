@@ -21,7 +21,8 @@ def index():
     return dict(message=T('Hello World'))
 
 def login():
-    """ 
+    """
+    DB changes 
     """
     name = request.vars.username
     password = request.vars.password
@@ -33,6 +34,22 @@ def login():
         return "Successful Login"
     else:
         return "Username/Password is wrong"
+
+def register():
+
+    email = request.vars.email
+    fname = request.vars.firstname
+    lname = request.vars.lastname
+    username = request.vars.uname
+    password = request.vars.passwd
+    myDB.credentials.insert(username=username, password=password)
+    query_1 = myDB.credentials.username == username
+    query_2 = myDB.credentials.password == password
+    rows = myDB(query_1 & query_1).select()
+    if rows:
+        uid = rows[0].user_id
+        myDB.personal_details.insert(user_id=uid, first_name=fname, last_name=lname, email=email)
+    return "Success"
 
 
 
