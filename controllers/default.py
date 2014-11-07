@@ -20,6 +20,19 @@ def index():
     response.flash = T("Welcome to web2py!")
     return dict(message=T('Hello World'))
 
+def login():
+    name = request.vars.username
+    password = request.vars.password
+    #myDB = DAL('mysql://root:Admin123@localhost/bookmarks')
+    query_1 = myDB.credentials.username == name
+    query_2 = myDB.credentials.password == password   
+    rows = myDB(query_1 & query_1).select()
+    if rows:
+        return "Successful Login"
+    else:
+        return "Username/Password is wrong"
+
+
 
 def user():
     """
@@ -69,3 +82,5 @@ def api():
         '<tablename>': {'GET':{},'POST':{},'PUT':{},'DELETE':{}},
         }
     return Collection(db).process(request,response,rules)
+
+
