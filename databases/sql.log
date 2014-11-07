@@ -53,3 +53,44 @@ CREATE TABLE auth_cas(
     renew CHAR(1)
 );
 success!
+timestamp: 2014-11-07T17:44:56.187190
+CREATE TABLE credentials(
+    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username CHAR(512),
+    password CHAR(512)
+);
+success!
+timestamp: 2014-11-07T19:17:40.987944
+CREATE TABLE personal_details(
+    pid INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES credentials (user_id) ON DELETE CASCADE,
+    First_Name CHAR(512),
+    Last_Name CHAR(512),
+    Email CHAR(512)
+);
+success!
+timestamp: 2014-11-07T19:35:19.260730
+CREATE TABLE links(
+    id INT AUTO_INCREMENT NOT NULL,
+    url VARCHAR(512),
+    PRIMARY KEY (id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2014-11-07T19:36:42.017478
+CREATE TABLE credentials(
+    user_id INT AUTO_INCREMENT NOT NULL,
+    username VARCHAR(512),
+    password VARCHAR(512),
+    PRIMARY KEY (user_id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2014-11-07T19:36:42.209144
+CREATE TABLE personal_details(
+    pid INT AUTO_INCREMENT NOT NULL,
+    user_id INT, INDEX user_id__idx (user_id), FOREIGN KEY (user_id) REFERENCES credentials (user_id) ON DELETE CASCADE,
+    First_Name VARCHAR(512),
+    Last_Name VARCHAR(512),
+    Email VARCHAR(512),
+    PRIMARY KEY (pid)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!

@@ -21,7 +21,8 @@ def index():
     return dict(message=T('Hello World'))
 
 def login():
-    """ 
+    """
+    DB changes 
     """
     name = request.vars.username
     password = request.vars.password
