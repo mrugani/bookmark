@@ -1,0 +1,56 @@
+{{extend 'layout.html'}}
+
+<div id="add_link" class="mainbox col-md-8">
+  {{if 'message' in globals():
+         print globals
+  }}
+
+    <div class="alert alert-success" style="width:60%;margin-left:25%;">
+
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+
+        <strong>Success!</strong> Link has been added successfully.
+
+    </div>
+
+{{pass}}
+<form id="chpassword" class="form-horizontal" role="form" action="addlink" method="post">
+
+    <div class="form-group">
+        <label for="url" class="col-md-3 control-label">URL</label>
+        <div class="col-md-7">
+            <input type="url" class="form-control" required name="url" placeholder="www.link.com">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="desc" class="col-md-3 control-label">Description</label>
+        <div class="col-md-7">
+            <textarea class="form-control" name="description" placeholder="Add description here.."></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="tags" class="col-md-3 control-label">Tags</label>
+        <div class="col-md-7">
+            <input type="text" class="form-control" name="tags" placeholder="tag1,tag2..">
+           <span class="help-block"><small>Enter comma seperated values.</small></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="visibility" class="col-md-3 control-label">Visibility</label>
+        <div class="col-md-7">
+            <label class="radio-inline">
+                <input type="radio" name="vis" id="private" value="private" checked>Private
+            </label>
+             <label class="radio-inline">
+                <input type="radio" name="vis" id="public" value="public" >Public
+            </label>
+        </div>
+    </div>    
+
+    <div>
+    	<button href="#" class="btn btn-primary" id="password_modal_save" style="margin-left:30%;margin-top:2%;" >  Save Link</button>
+	</div>
+    </form>
+</div>
+

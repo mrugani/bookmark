@@ -8,7 +8,7 @@
 ## - download is for downloading files uploaded in the db (does streaming)
 ## - api is an example of Hypermedia API support and access control
 #########################################################################
-
+import time
 def index():
     """
     example action using the internationalization operator T and flash
@@ -19,6 +19,9 @@ def index():
     """
     response.flash = T("Welcome to web2py!")
     return dict(error=T(''))
+
+def home():
+    return dict()
 
 def login():
     """
@@ -31,8 +34,9 @@ def login():
     query_2 = myDB.credentials.password == password   
     rows = myDB(query_1 & query_2).select()
     if rows:
-        #return rows[0].password
-        return "Successful Login"
+        #redirect to home page
+        response.view = "default/user.html"
+       # return dict(error=T("Successful login"))
     else:
         response.view = 'default/index.html'
         return dict(error=T("Username/Password is wrong"))
@@ -47,13 +51,37 @@ def register():
     myDB.credentials.insert(username=username, password=password)
     query_1 = myDB.credentials.username == username
     query_2 = myDB.credentials.password == password
-    rows = myDB(query_1 & query_1).select()
+    rows = myDB(query_1 & query_2).select()
     if rows:
         uid = rows[0].user_id
         myDB.personal_details.insert(user_id=uid, first_name=fname, last_name=lname, email=email)
     return "Success"
 
 def signup():
+    return dict()
+
+def chpassword():
+
+    if request.vars.old_password:
+        old = request.vars.old_password
+        new = request.vars.new_passwd
+        uid = session.uid;
+        return dict(message=T(''))        
+
+    return dict()
+
+def addlink():
+
+    if request.vars.url:
+
+        url = request.vars.url;
+        desc = request.vars.description;
+        tags = request.vars.tags
+        vis = request.vars.vis;
+        tm = int(time.time())
+        myDB.link.insert(user_id=1, url=url, visibility=vis, tags=tags, description=desc, date=tm)
+        return dict(message=T(''))
+
     return dict()
 
 def user():
