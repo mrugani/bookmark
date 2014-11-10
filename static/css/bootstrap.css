@@ -188,6 +188,15 @@ td,
 th {
   padding: 0;
 }
+.advertise{
+    display : inline;
+    float : left;
+    width: 50%;
+}
+.login{
+    float:right;
+    width=100px;
+}
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
 @media print {
   *,
