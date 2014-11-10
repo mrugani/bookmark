@@ -1,4 +1,6 @@
 {{extend 'layout.html'}}
+
+
     <div class="container">    
         <div class="advertise" style="float:left;">
             <ul>
@@ -62,7 +64,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12 control" style="color:red;margin-left:20%">
-                                    <label for="Error message"> Invalid Username/Password </label>
+                                    <label for="Error message"> {{=error}} </label>
                                 </div>
 
                                 <div class="form-group">

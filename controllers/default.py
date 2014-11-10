@@ -18,7 +18,7 @@ def index():
     return auth.wiki()
     """
     response.flash = T("Welcome to web2py!")
-    return dict(message=T('Hello World'))
+    return dict(error=T(''))
 
 def login():
     """
@@ -29,11 +29,13 @@ def login():
     #myDB = DAL('mysql://root:Admin123@localhost/bookmarks')
     query_1 = myDB.credentials.username == name
     query_2 = myDB.credentials.password == password   
-    rows = myDB(query_1 & query_1).select()
+    rows = myDB(query_1 & query_2).select()
     if rows:
+        #return rows[0].password
         return "Successful Login"
     else:
-        return "Username/Password is wrong"
+        response.view = 'default/index.html'
+        return dict(error=T("Username/Password is wrong"))
 
 def register():
 
