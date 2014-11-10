@@ -20,8 +20,9 @@ def index():
     response.flash = T("Welcome to web2py!")
     return dict(error=T(''))
 
-def home():
+def user():
     return dict()
+
 
 def login():
     """
@@ -35,8 +36,9 @@ def login():
     rows = myDB(query_1 & query_2).select()
     if rows:
         #redirect to home page
+        session.uid=rows[0].user_id
         response.view = "default/user.html"
-       # return dict(error=T("Successful login"))
+        return dict(error=T("Successful login"))
     else:
         response.view = 'default/index.html'
         return dict(error=T("Username/Password is wrong"))

@@ -79,3 +79,15 @@
 nav > .container-fluid {
     margin-left:6%; 
 }
+#add_link , #ch_password {
+    margin-top: 8%;
+}
+#link_success , #password_success{
+    width:57%;
+    margin-left:26%;
+}
+
+#password_success{
+        width:48%;
+    margin-left:26%;
+}

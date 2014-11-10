@@ -1,11 +1,11 @@
-{{extend 'layout.html'}}
+{{extend 'main.html'}}
 
 <div id="add_link" class="mainbox col-md-8">
   {{if 'message' in globals():
          print globals
   }}
 
-    <div class="alert alert-success" style="width:60%;margin-left:25%;">
+    <div class="alert alert-success" id="link_success">
 
         <a href="#" class="close" data-dismiss="alert">&times;</a>
 
@@ -53,4 +53,3 @@
 	</div>
     </form>
 </div>
-
