@@ -51,7 +51,8 @@ def register():
         myDB.personal_details.insert(user_id=uid, first_name=fname, last_name=lname, email=email)
     return "Success"
 
-
+def signup():
+    return dict()
 
 def user():
     """
@@ -101,5 +102,3 @@ def api():
         '<tablename>': {'GET':{},'POST':{},'PUT':{},'DELETE':{}},
         }
     return Collection(db).process(request,response,rules)
-
-
