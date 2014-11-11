@@ -68,6 +68,12 @@ def chpassword():
         old = request.vars.old_password
         new = request.vars.new_passwd
         uid = session.uid;
+        query_1 = myDB.credentials.user_id == uid;
+        rows = myDB(query_1).select();
+        if rows:
+            if rows[0].password != old:
+                return dict(error=T(''))
+        myDB(query_1).update(password=new)
         return dict(message=T(''))        
 
     return dict()

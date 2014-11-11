@@ -88,6 +88,11 @@ nav > .container-fluid {
 }
 
 #password_success{
-        width:48%;
+    width:48%;
     margin-left:26%;
 }
+
+#password_error{
+	width:48%;
+    margin-left:26%;
+}	
