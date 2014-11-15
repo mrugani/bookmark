@@ -81,12 +81,10 @@ span.tags
     padding: 2px 4px;
     
 }
-
-/*.container1{
-
-	margin-left: 10%;
-}*/
-
+.date-display{
+	color: #A9A9A9;
+	font-size: 0.9em;
+}
 .nav {
     margin-left:6%;
 }
@@ -118,8 +116,4 @@ margin-top:2%;
 .wrap-link{
     display: inline-block;
     word-wrap: break-word;
-}
-.date-display{
-	color: #A9A9A9;
-	font-size: 0.9em;
 }
