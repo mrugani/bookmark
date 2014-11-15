@@ -29,6 +29,7 @@ user-scalable = yes allows the user to zoom in -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="shortcut icon" href="{{=URL('static','images/favicon.ico')}}" type="image/x-icon">
 <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
+    
 <!-- All JavaScript at the bottom, except for Modernizr which enables
 HTML5 elements & feature detects -->
 <script src="{{=URL('static','js/modernizr.custom.js')}}"></script>
@@ -64,25 +65,69 @@ uncomment to load jquery-ui //-->
 </div>
 <div class="collapse navbar-collapse">
 <ul class="nav navbar-nav">
-<li><a href="#">
+    
+    {{if request.function=="home":}}
+    <li class="active">
+    {{else:}}
+        <li>
+    {{pass}}
+    <a href="#">
     <span class="glyphicon glyphicon-home"></span>
     Home</a></li>
-<li><a href="addlink">
+ 
+    
+    {{if request.function=="addlink":}}
+    <li class="active">
+    {{else:}}
+        <li>
+    {{pass}}
+    <a href="addlink">
     <span class="glyphicon glyphicon-plus"></span>
     Link</a></li>
-<li><a href="show_links">
+
+
+
+    
+    
+    {{if request.function=="show_links":}}
+    <li class="active">
+    {{else:}}
+       <li>
+    {{pass}}
+    <a href="show_links">
     <span class="glyphicon glyphicon-bookmark"></span>
     View Links</a></li>
-<li><a href="#">
+    
+    
+    {{if request.function=="search":}}
+    <li class="active">
+    {{else:}}
+        <li>
+    {{pass}}
+    <a href="#">
     <span class="glyphicon glyphicon-search"></span>
     Search</a></li>
-<li><a href="#">
+    
+    
+    {{if request.function=="trends":}}
+    <li class="active">
+    {{else:}}
+        <li>
+    {{pass}}
+    <a href="#">
     <span class="glyphicon glyphicon-stats"></span>
-    Trends
-    </a></li>
-<li><a href="chpassword">
+    Trends</a></li>
+    
+    
+    {{if request.function=="chpassword":}}
+    <li class="active">
+    {{else:}}
+        <li>
+    {{pass}}
+    <a href="chpassword">
     <span class="glyphicon glyphicon-cog"></span>
     Settings</a></li>
+    
 </ul>
 <ul class="nav navbar-nav navbar-right">
     <li><a href="#">
@@ -151,5 +196,6 @@ ga('send', 'pageview');
 <!-- End Google Analytics -->
 {{pass}}
 <script src="{{=URL('static','js/share.js',vars=dict(static=URL('static','images')))}}"></script>
+    
 </body>
 </html>
