@@ -23,6 +23,8 @@ def index():
 def user():
     return dict()
 
+def show_links():
+    return dict()
 
 def login():
     """

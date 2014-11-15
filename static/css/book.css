@@ -72,6 +72,20 @@
     background: #DAE9F4;
 }
 
+span.tags 
+{
+    background: #A9A9A9;
+    border-radius: 2px;
+    color: #f5f5f5;
+    font-weight: bold;
+    padding: 2px 4px;
+    
+}
+
+/*.container1{
+
+	margin-left: 10%;
+}*/
 
 .nav {
     margin-left:6%;
@@ -99,4 +113,13 @@ nav > .container-fluid {
 #password_modal_save{
 margin-left:30%;
 margin-top:2%; 
+}
+
+.wrap-link{
+    display: inline-block;
+    word-wrap: break-word;
+}
+.date-display{
+	color: #A9A9A9;
+	font-size: 0.9em;
 }
