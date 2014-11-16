@@ -34,8 +34,6 @@ def show_links():
     for l in rows:
         tags = []
         tags = l.tags.split(",")
-        print tags
-        print l.visibility
         link_save = link(l.url, l.lid, tags, l.description, l.date, l.visibility)
         L.append(link_save)
    
@@ -44,6 +42,7 @@ def show_links():
 def delete():
 
     """delete the link with this id"""
+    #print request.env.request_method
     query = myDB.link.lid == request.vars.id;
     myDB(query).delete()
 

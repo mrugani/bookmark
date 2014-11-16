@@ -23,8 +23,8 @@
                 {{pass}}
             </div>
             <div class="col-md-2 pull-right" style="margin-top:1%;">     
-                    <button href="#" class="btn btn-primary btn-xs glyphicon glyphicon-pencil" style="margin-left:40%;" onclick="window.location='{{=URL('default', 'addlink', vars={'lid':x.get_lid})}}'"></button>
-                    <button class="btn btn-primary btn-xs pull-right glyphicon glyphicon-trash" onclick="r=confirm('Are you sure you want to delete this link?');if(r==true) {ajax('{{=URL('default', 'delete', vars={'id':x.get_lid()})}}', [], null);el=document.getElementById({{=x.get_lid()}});el.parentNode.removeChild(el);}"></button>
+                    <button href="#" class="btn btn-primary btn-xs glyphicon glyphicon-pencil" style="margin-left:40%;" onclick="test()"></button>
+                    <button class="btn btn-primary btn-xs pull-right glyphicon glyphicon-trash" onclick="delete_link({{=x.get_lid()}})"></button>
             </div>   
         </div>
 
