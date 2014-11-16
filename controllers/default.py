@@ -9,6 +9,7 @@
 ## - api is an example of Hypermedia API support and access control
 #########################################################################
 import time
+from link import *
 def index():
     """
     example action using the internationalization operator T and flash
@@ -24,8 +25,29 @@ def user():
     return dict()
 
 def show_links():
-    return dict()
 
+    """Retrieve links saved by the user from DB"""
+    query_1 = myDB.link.user_id == session.uid
+    rows = myDB(query_1).select()
+    L = []
+    size = len(rows)
+    for l in rows:
+        tags = []
+        tags = l.tags.split(",")
+        print tags
+        print l.visibility
+        link_save = link(l.url, l.lid, tags, l.description, l.date, l.visibility)
+        L.append(link_save)
+   
+    return dict(links=L)
+
+def delete():
+
+    """delete the link with this id"""
+    query = myDB.link.lid == request.vars.id;
+    myDB(query).delete()
+
+    
 def login():
     """
     DB changes 
@@ -89,7 +111,7 @@ def addlink():
         tags = request.vars.tags
         vis = request.vars.vis;
         tm = int(time.time())
-        myDB.link.insert(user_id=1, url=url, visibility=vis, tags=tags, description=desc, date=tm)
+        myDB.link.insert(user_id=session.uid, url=url, visibility=vis, tags=tags, description=desc, date=tm)
         return dict(message=T(''))
 
     return dict()
