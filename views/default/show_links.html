@@ -33,8 +33,11 @@
             <div class="col-md-12">
             <p><strong>Description: </strong>{{=x.get_desc()}} </p>
             <p><strong>Tags: </strong>
-                {{ for t in x.get_tags():}}
+                {{ for t in x.get_tags():
+                    if t!="":
+                }}
                     <span class="tags">{{=t}}</span> 
+                {{pass}}
                 {{pass}}
             </p>
         </div>
