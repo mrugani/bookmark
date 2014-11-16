@@ -105,6 +105,17 @@ def chpassword():
 def addlink():
 
     """ Check for update link """
+
+    if request.vars.lid:
+        url = request.vars.url;
+        desc = request.vars.description;
+        print request.vars.tags
+        tags = request.vars.tags
+        vis = request.vars.vis;
+        query = myDB.link.lid == request.vars.lid
+        myDB(query).update(url=url, visibility=vis, description=desc, tags=tags)
+        return dict(message=T('Link updated Successfully'))
+
     if request.vars.id:
         query = myDB.link.lid == request.vars.id;
         r = myDB(query).select();
@@ -119,9 +130,11 @@ def addlink():
         vis = request.vars.vis;
         tm = int(time.time())
         myDB.link.insert(user_id=session.uid, url=url, visibility=vis, tags=tags, description=desc, date=tm)
-        return dict(message=T(''))
+        return dict(message=T('Link has been added Successfully'))
 
     return dict()
+
+
 
 def user():
     """
