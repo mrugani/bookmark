@@ -43,6 +43,7 @@ def delete():
 
     """delete the link with this id"""
     #print request.env.request_method
+    print "deleting " , request.vars.id
     query = myDB.link.lid == request.vars.id;
     myDB(query).delete()
 
@@ -103,6 +104,24 @@ def chpassword():
 
 def addlink():
 
+    """ Check for update link """
+
+    if request.vars.lid:
+        url = request.vars.url;
+        desc = request.vars.description;
+        tags = request.vars.tags
+        vis = request.vars.vis;
+        query = myDB.link.lid == request.vars.lid
+        myDB(query).update(url=url, visibility=vis, description=desc, tags=tags)
+        return dict(message=T('Link updated Successfully'))
+
+    if request.vars.id:
+        query = myDB.link.lid == request.vars.id;
+        r = myDB(query).select();
+        l = link(r[0].url, r[0].lid, r[0].tags, r[0].description, r[0].date, r[0].visibility)
+        return dict(link=l)
+        
+    """ Add new link else """
     if request.vars.url:
 
         url = request.vars.url;
@@ -111,9 +130,11 @@ def addlink():
         vis = request.vars.vis;
         tm = int(time.time())
         myDB.link.insert(user_id=session.uid, url=url, visibility=vis, tags=tags, description=desc, date=tm)
-        return dict(message=T(''))
+        return dict(message=T('Link has been added Successfully'))
 
     return dict()
+
+
 
 def user():
     """
@@ -130,7 +151,7 @@ def user():
         @auth.requires_permission('read','table name',record_id)
     to decorate functions that need access control
     """
-    return dict(form=auth())
+    return dict()
 
 
 @cache.action()
