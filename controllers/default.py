@@ -21,11 +21,24 @@ def index():
     response.flash = T("Welcome to web2py!")
     return dict(error=T(''))
 
+
 def user():
+    """Home page of the user to display public links of people followed"""
+    q1 = myDB.follow.follower == session.uid
+    q2 = myDB.follow.followee == myDB.link.user_id
+    q3 = myDB.link.visibility == "public"
+    rows = myDB(q1 & q2 & q3).select()
+    L=[]
+    for l in rows:
+        tags = []   
+        tags = l.link.tags.split(",")
+        
     return dict()
+
 
 def search():
     return dict()
+
 
 def show_links():
 
@@ -65,7 +78,6 @@ def login():
         #redirect to home page
         session.uid=rows[0].user_id
         redirect('user')
-        
     else:
         response.view = 'default/index.html'
         return dict(error=T("Username/Password is wrong"))

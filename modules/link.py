@@ -26,5 +26,5 @@ class link:
 		return self.date
 
 	def is_private(self):
-		
 		return self.visibility == "private"
+
