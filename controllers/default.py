@@ -24,6 +24,9 @@ def index():
 def user():
     return dict()
 
+def search():
+    return dict()
+
 def show_links():
 
     """Retrieve links saved by the user from DB"""
