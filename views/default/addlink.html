@@ -2,7 +2,7 @@
 
 <div id="add_link" class="mainbox col-md-8">
   {{if 'message' in globals():
-         print globals
+
   }}
 
     <div class="alert alert-success" id="link_success">
@@ -14,24 +14,38 @@
     </div>
 
 {{pass}}
-<form id="chpassword" class="form-horizontal" role="form" action="addlink" method="post">
+{{
+
+    url = ""
+    desc = ""
+    tags = ""
+    if 'link' in globals():
+        url = link.get_url()
+        desc = link.get_desc() 
+        print desc  
+        tags = link.get_tags()
+
+    pass
+
+}}
+<form id="addlink" class="form-horizontal" role="form" action="addlink" method="post">
 
     <div class="form-group">
         <label for="url" class="col-md-3 control-label">URL</label>
         <div class="col-md-7">
-            <input type="url" class="form-control" required name="url" placeholder="www.link.com">
+            <input type="url" class="form-control" required name="url" placeholder="www.link.com" value={{=url}}>
         </div>
     </div>
     <div class="form-group">
         <label for="desc" class="col-md-3 control-label">Description</label>
         <div class="col-md-7">
-            <textarea class="form-control" name="description" placeholder="Add description here.."></textarea>
+            <textarea class="form-control" name="description" placeholder="Add description here.." >{{=desc}}</textarea>
         </div>
     </div>
     <div class="form-group">
         <label for="tags" class="col-md-3 control-label">Tags</label>
         <div class="col-md-7">
-            <input type="text" class="form-control" name="tags" placeholder="tag1,tag2..">
+            <input type="text" class="form-control" name="tags" placeholder="tag1,tag2.." value={{=tags}}>
            <span class="help-block"><small>Enter comma seperated values.</small></span>
         </div>
     </div>
@@ -40,6 +54,7 @@
         <label for="visibility" class="col-md-3 control-label">Visibility</label>
         <div class="col-md-7">
             <label class="radio-inline">
+                if
                 <input type="radio" name="vis" id="private" value="private" checked>Private
             </label>
              <label class="radio-inline">
