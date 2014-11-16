@@ -109,7 +109,6 @@ def addlink():
     if request.vars.lid:
         url = request.vars.url;
         desc = request.vars.description;
-        print request.vars.tags
         tags = request.vars.tags
         vis = request.vars.vis;
         query = myDB.link.lid == request.vars.lid
@@ -121,6 +120,7 @@ def addlink():
         r = myDB(query).select();
         l = link(r[0].url, r[0].lid, r[0].tags, r[0].description, r[0].date, r[0].visibility)
         return dict(link=l)
+        
     """ Add new link else """
     if request.vars.url:
 

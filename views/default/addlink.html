@@ -27,7 +27,7 @@
     if 'link' in globals():
         url = link.get_url()
         desc = link.get_desc()  
-        tags = link.get_tags()
+        tags = link.get_tags()+""
         update = "Update Link"
         lid = link.get_lid()
         action = "updatelink"
@@ -45,7 +45,7 @@
     <div class="form-group">
         <label for="url" class="col-md-3 control-label">URL</label>
         <div class="col-md-7">
-            <input type="url" class="form-control" required name="url" placeholder="www.link.com" value={{=url}}>
+            <input type="url" class="form-control" required name="url" placeholder="www.link.com" value="{{=url}}">
         </div>
     </div>
     <div class="form-group">
@@ -57,7 +57,7 @@
     <div class="form-group">
         <label for="tags" class="col-md-3 control-label">Tags</label>
         <div class="col-md-7">
-            <input type="text" class="form-control" name="tags" placeholder="tag1,tag2.." value={{=tags}}>
+            <input type="text" class="form-control" name="tags" placeholder="tag1,tag2.." value="{{=tags}}">
            <span class="help-block"><small>Enter comma seperated values.</small></span>
         </div>
     </div>
