@@ -27,12 +27,18 @@ def user():
     q1 = myDB.follow.follower == session.uid
     q2 = myDB.follow.followee == myDB.link.user_id
     q3 = myDB.link.visibility == "public"
-    rows = myDB(q1 & q2 & q3).select()
+    q4 = myDB.follow.followee == myDB.personal_details.user_id
+    q5 = myDB.follow.followee == myDB.credentials.username
+    rows = myDB(q1 & q2 & q3 & q4 & q5).select()
     L=[]
     for l in rows:
+        print l.credentials.username
+        '''
         tags = []   
         tags = l.link.tags.split(",")
-        
+        link_display=link(l.link.url, l.link.lid, tags, l.link.description, l.link.date, "public")
+        user_display=user_details(l.)
+        '''
     return dict()
 
 
