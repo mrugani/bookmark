@@ -64,11 +64,12 @@ def login():
     if rows:
         #redirect to home page
         session.uid=rows[0].user_id
-        response.view = "default/user.html"
-        return dict(error=T("Successful login"))
+        redirect('user')
+        
     else:
         response.view = 'default/index.html'
         return dict(error=T("Username/Password is wrong"))
+
 
 def register():
 
@@ -139,22 +140,6 @@ def addlink():
 
 
 
-def user():
-    """
-    exposes:
-    http://..../[app]/default/user/login
-    http://..../[app]/default/user/logout
-    http://..../[app]/default/user/register
-    http://..../[app]/default/user/profile
-    http://..../[app]/default/user/retrieve_password
-    http://..../[app]/default/user/change_password
-    http://..../[app]/default/user/manage_users (requires membership in
-    use @auth.requires_login()
-        @auth.requires_membership('group name')
-        @auth.requires_permission('read','table name',record_id)
-    to decorate functions that need access control
-    """
-    return dict()
 
 
 @cache.action()
