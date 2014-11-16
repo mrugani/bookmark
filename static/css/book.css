@@ -117,3 +117,14 @@ margin-top:2%;
     display: inline-block;
     word-wrap: break-word;
 }
+.followee-display{
+	color: #428BCA;
+	font-size: 1.3em;
+	display: inline;
+	margin-left: 15px;
+}
+.username-date-display{
+	color: #A9A9A9;
+	font-size: 0.95em;
+	display: inline;
+}
