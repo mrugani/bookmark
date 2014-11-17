@@ -25,6 +25,7 @@ def index():
 
 def user():
     """Home page of the user to display public links of people followed"""
+
     q1 = myDB.follow.follower == session.uid
     q2 = myDB.follow.followee == myDB.link.user_id
     q3 = myDB.link.visibility == "public"
@@ -42,10 +43,11 @@ def user():
             exist=0
         else:
             exist=1
-        
+        #print "exist " ,exist
         link_display=link(l.link.url, l.link.lid, tags, l.link.description, l.link.date, "public")
         user_display=user_details(l.link.user_id,l.personal_details.first_name,l.personal_details.last_name,l.credentials.username,exist)
         user_display.set_link_details(link_display)
+        #print "user_display.exist", user_display.exist
         L.append(user_display)
         #print user_display.firstname,user_display.lastname,user_display.username,user_display.link_details.url
     return dict(following=L)
@@ -237,7 +239,7 @@ def addlink():
         query = myDB.link.lid == request.vars.id;
         r = myDB(query).select();
         l = link(r[0].url, r[0].lid, r[0].tags, r[0].description, r[0].date, r[0].visibility)
-        return dict(link=l)
+        return dict(link=l,update_current=1)
         
     """ Add new link else """
     if request.vars.url:
@@ -249,6 +251,14 @@ def addlink():
         tm = int(time.time())
         myDB.link.insert(user_id=session.uid, url=url, visibility=vis, tags=tags, description=desc, date=tm)
         return dict(message=T('Link has been added Successfully'))
+
+    """ Add a link from followed user """
+    if request.vars.follow_lid:
+        print request.vars.follow_lid
+        q1 = myDB.link.lid == request.vars.follow_lid
+        r = myDB(q1).select()
+        l = link(r[0].url,r[0].lid, r[0].tags, r[0].description, r[0].date, "private")
+        return dict(link=l,update_current=0)
 
     return dict()
 

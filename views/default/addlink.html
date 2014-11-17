@@ -28,9 +28,11 @@
         url = link.get_url()
         desc = link.get_desc()  
         tags = link.get_tags()+""
-        update = "Update Link"
-        lid = link.get_lid()
-        action = "updatelink"
+        if update_current==1:
+            update = "Update Link"
+            lid = link.get_lid()
+            action = "updatelink"
+        pass
         if link.is_private():
             ch = "checked"
         else:
