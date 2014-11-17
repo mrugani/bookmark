@@ -10,6 +10,7 @@
 #########################################################################
 import time
 from link import *
+from user_details import *
 def index():
     """
     example action using the internationalization operator T and flash
@@ -28,18 +29,18 @@ def user():
     q2 = myDB.follow.followee == myDB.link.user_id
     q3 = myDB.link.visibility == "public"
     q4 = myDB.follow.followee == myDB.personal_details.user_id
-    q5 = myDB.follow.followee == myDB.credentials.username
-    rows = myDB(q1 & q2 & q3 & q4 & q5).select()
+    q5 = myDB.follow.followee == myDB.credentials.user_id
+    rows = myDB(q1 & q2 & q3 & q4 & q5).select(orderby="link.date DESC")
     L=[]
     for l in rows:
-        print l.credentials.username
-        '''
         tags = []   
         tags = l.link.tags.split(",")
         link_display=link(l.link.url, l.link.lid, tags, l.link.description, l.link.date, "public")
-        user_display=user_details(l.)
-        '''
-    return dict()
+        user_display=user_details(l.personal_details.first_name,l.personal_details.last_name,l.credentials.username)
+        user_display.set_link_details(link_display)
+        L.append(user_display)
+        #print user_display.firstname,user_display.lastname,user_display.username,user_display.link_details.url
+    return dict(following=L)
 
 
 def search():

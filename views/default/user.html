@@ -3,36 +3,46 @@
 <br>
 <br>
 <!--h3> Recent activities </h3-->
-
 <div class="container1 " style="margin-left:10%;" >
 
+{{
+    import datetime
+    if 'following' in globals():
+       for x in following: 
 
-    <div class="row well" style="width:80%; margin-left:2%;">
+}}
+
+
+    <div class="row well" style="width:80%; margin-left:2%;" id={{=x.link_details.get_lid()}}>
         
         <div class="col-md-11">
         	<div class="followee-display"> <b>
-        			Siji Sarah Jacob</b>
+        			{{=x.get_firstname()}} {{=x.get_lastname()}}</b>
         	</div>
 
         	<div class="username-date-display">
-        		@siji <sup>.</sup> 16-11-2014
+        		@{{=x.get_username()}} <sup>.</sup> 
+        		{{=datetime.datetime.fromtimestamp(x.link_details.get_date()).strftime('%d-%m-%Y')}}
         	</div>
         </div>
 
         <div class="col-md-11">
-        	<div class="col-md-10 wrap-link">
-            	<h4><a href='www.link.com' target="_blank">www.link.com</a></h4>
+        	<div class="col-md-12 wrap-link">
+            	<h4><a href='{{=x.link_details.url}}' target="_blank">{{=x.link_details.get_url()}}</a></h4>
             </div>
     	 </div>
 
 
         <div class="col-md-11 text-center">
             <div class="col-md-12">
-            <p><strong>Description: </strong>Description</p>
+            <p><strong>Description: </strong>{{=x.link_details.get_desc()}}</p>
             <p><strong>Tags: </strong>
-                    <span class="tags">Tag1</span> 
-                    <span class="tags">Tag2</span> 
-                    <span class="tags">Tag3</span> 
+	            {{ for t in x.link_details.get_tags():
+	                if t!="":
+	            }}
+	                    <span class="tags">{{=t}}</span> 
+                {{pass}}
+                {{pass}}
             </p>
         </div>
         </div>     
@@ -42,6 +52,6 @@
 	        </div>
 	    </div> 
     </div> 
+{{pass}}
 </div>
-
- 
+{{pass}}
