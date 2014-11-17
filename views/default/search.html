@@ -1,0 +1,141 @@
+
+{{extend 'main.html'}}
+<br>
+<br>
+<br>
+	<div class="search">
+    <form class="form-inline" method="post" action="search">
+    	<label> Search by: </label>
+    	<select class="form-control" name="option">
+		  <option>Users</option>
+		  <option>Tags</option>
+		  <option>URL</option>
+		</select>
+    <input type="text" class="form-control" name="keyword" required placeholder="Enter keyword">
+    <button type="submit" class="btn btn-primary" >Search</button>
+    </form>
+
+    <br>
+    <br>
+</div>
+
+
+    <div class="container1 " style="margin-left:10%;" >
+
+{{if 'users' in globals(): 
+    if len(users) == 0:
+}}
+    <label class="search_results" style="margin-left:2%;margin-bottom:2%;"> No search results found for query: {{=query}}</label>
+{{
+    elif 'users' in globals() and len(users)!=0:    
+}}
+    <label class="search_results" style="margin-left:2%;margin-bottom:2%;"> Search results for query: {{=query}}</label>
+{{
+    for user in users:
+        display_name = user.get_firstname()+" " + user.get_lastname()
+        following = user.get_is_following()
+        if following:
+            follow_class = "btn btn-warning btn-sm"
+            follow_text = "UNFOLLOW"
+            follow_function = "unfollow(%ld" %session.uid
+            follow_function = follow_function + "," + "%d"%user.get_user_id() + ")"
+        else:
+            follow_class = "btn btn-success btn-sm"
+            follow_text = "FOLLOW"
+            follow_function = "follow(%ld" %session.uid
+            follow_function = follow_function + "," + "%d"%user.get_user_id() + ")"
+        pass
+
+}}
+    <div class="row well" style="width:80%; margin-left:2%;">
+        
+        <div class="col-md-11">
+            <div class="followee-display"> <b>
+                    {{=display_name}}</b>
+            </div>
+
+            <div class="username-date-display">
+                @{{=user.get_username()}} <sup>.</sup> Joined 16-11-2014
+            </div>
+            <div class="col-md-1 pull-right">
+                <button href="#" class="{{=follow_class}}"id="{{=user.get_user_id()}}" onclick="{{=follow_function}}"><strong>{{=follow_text}}</strong></button> 
+            </div>
+        </div>
+
+        <div class="col-md-11">
+            <div class="col-md-10 wrap-link">
+               <label class="search_display">10 </label> <label class="txt"> Followers </label>
+               <label class="search_display">10 </label> <label class="txt"> Following </label>
+               <label class="search_display">10 </label> <label class="txt"> Public Links </label>
+            </div>
+         </div>
+
+
+    </div> 
+
+{{pass}}
+{{pass
+  pass}}
+</div>
+
+<!-- Div for displaying search results for search by url or tags-->
+
+<div class="container2 " style="margin-left:10%;" >
+    {{if 'links' in globals(): 
+        print "len: " ,len(links)
+        if len(links) == 0:
+}}
+    <label class="search_results" style="margin-left:2%;margin-bottom:2%;"> No search results found for query: {{=query}}</label>
+{{
+    elif 'links' in globals() and len(links)!=0:    
+}}
+    <label class="search_results" style="margin-left:2%;margin-bottom:2%;"> Search results for query: {{=query}}</label>
+{{
+    import datetime
+    if 'links' in globals():
+       for x in links: 
+
+}}
+
+
+    <div class="row well" style="width:80%; margin-left:2%;" id={{=x.get_lid()}}>
+        
+        <div class="col-md-11">
+        
+            <div class="col-md-10 wrap-link">
+                {{if x.is_private() == 0:}}
+                    <h4><b><a href='{{=x.get_url()}}' target="_blank">{{=x.get_url()}}</a></b></h4>
+                {{else:}}
+                    <h4><b><a href='{{=x.get_url()}}' target="_blank" style="color:#FF8000">{{=x.get_url()}}</a></b></h4>
+                {{pass}}
+            </div>
+            <div class="col-md-2 pull-right" style="margin-top:1%;">     
+                <button class="btn btn-primary btn-xs glyphicon glyphicon-pencil" style="margin-left:40%;" onclick="update_link({{=x.get_lid()}})"></button>
+                <button class="btn btn-primary btn-xs pull-right glyphicon glyphicon-trash" onclick="delete_link({{=x.get_lid()}})"></button>
+            </div>   
+        </div>
+
+
+        <div class="col-md-11 text-center">
+            <div class="col-md-12">
+            <p><strong>Description: </strong>{{=x.get_desc()}} </p>
+            <p><strong>Tags: </strong>
+                {{ for t in x.get_tags():
+                    if t!="":
+                }}
+                    <span class="tags">{{=t}}</span> 
+                {{pass}}
+                {{pass}}
+            </p>
+        </div>
+        </div> 
+        <div class="date-display">
+            {{=datetime.datetime.fromtimestamp(x.get_date()).strftime('%d-%m-%Y')}}
+        </div>         
+    </div>
+ {{pass}}
+
+</div>
+ {{pass}}
+ {{pass}}
+ {{pass}}
