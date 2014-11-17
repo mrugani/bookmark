@@ -19,7 +19,7 @@ def index():
     if you need a simple wiki simply replace the two lines below with:
     return auth.wiki()
     """
-    print "ABCD "
+   
     if auth.user:
         redirect(URL('default', 'user'))
     else:
@@ -32,18 +32,18 @@ def old_index():
 
 def user():
     """Home page of the user to display public links of people followed"""
-
-    q1 = myDB.follow.follower == session.uid
+    #print "user id", auth.user_id
+    q1 = myDB.follow.follower == auth.user_id
     q2 = myDB.follow.followee == myDB.link.user_id
     q3 = myDB.link.visibility == "public"
-    q4 = myDB.follow.followee == myDB.personal_details.user_id
-    q5 = myDB.follow.followee == myDB.credentials.user_id
-    rows = myDB(q1 & q2 & q3 & q4 & q5).select(orderby="link.date DESC")
+    q4 = myDB.follow.followee == myDB.auth_user.id
+    q5 = myDB.follow.followee == myDB.auth_user.id
+    rows = myDB(q1 & q2 & q3 & q4 & q5).select(orderby="link.created_date DESC")
     L=[]
     for l in rows:
         tags = []   
         tags = l.link.tags.split(",")
-        q6 = myDB.link.user_id == session.uid
+        q6 = myDB.link.user_id == auth.user_id
         q7 = myDB.link.url == l.link.url
         check = myDB(q6 & q7).select()
         if len(check)==0:
@@ -51,8 +51,8 @@ def user():
         else:
             exist=1
         #print "exist " ,exist
-        link_display=link(l.link.url, l.link.lid, tags, l.link.description, l.link.date, "public")
-        user_display=user_details(l.link.user_id,l.personal_details.first_name,l.personal_details.last_name,l.credentials.username,exist)
+        link_display=link(l.link.url, l.link.lid, tags, l.link.description, l.link.created_date, "public")
+        user_display=user_details(l.link.user_id,l.auth_user.first_name,l.auth_user.last_name,l.auth_user.username,exist)
         user_display.set_link_details(link_display)
         #print "user_display.exist", user_display.exist
         L.append(user_display)
@@ -72,14 +72,14 @@ def search():
         if option == "Users":
             print "User selected ", keyword
             keyword = "%"+keyword+"%"
-            query = myDB.credentials.username.like(keyword)
+            query = myDB.auth_user.username.like(keyword)
             rows = myDB(query).select()
             user_list = []
             for user in rows:
-                id = user.user_id;
-                query_2 = myDB.personal_details.user_id == id;
+                id = user.id;
+                query_2 = myDB.auth_user.id == id;
                 details = myDB(query_2).select()
-                query_3 = myDB.follow.follower==session.uid
+                query_3 = myDB.follow.follower==auth.user_id
                 query_4 = myDB.follow.followee==id
 
                 follow_details = myDB(query_3 & query_4).select()
@@ -101,14 +101,14 @@ def search():
             
             keyword = "%"+keyword+"%"
             #check if keyword contains comma..
-            query_1 = myDB.link.user_id == session.uid
+            query_1 = myDB.link.user_id == auth.user_id
             query_2 = myDB.link.tags.like(keyword)
             rows = myDB(query_1 & query_2).select()
             L = []
             for l in rows:
                 tags = []
                 tags = l.tags.split(",")
-                link_save = link(l.url, l.lid, tags, l.description, l.date, l.visibility)
+                link_save = link(l.url, l.lid, tags, l.description, l.created_date, l.visibility)
                 L.append(link_save)
                 
             query = "Tags="+keyword[1:-1]
@@ -120,14 +120,14 @@ def search():
             print "OPtion selected URL"
             keyword = "%"+keyword+"%"
             #check if keyword contains comma..
-            query_1 = myDB.link.user_id == session.uid
+            query_1 = myDB.link.user_id == auth.user_id
             query_2 = myDB.link.url.like(keyword)
             rows = myDB(query_1 & query_2).select()
             L = []
             for l in rows:
                 tags = []
                 tags = l.tags.split(",")
-                link_save = link(l.url, l.lid, tags, l.description, l.date, l.visibility)
+                link_save = link(l.url, l.lid, tags, l.description, l.created_date, l.visibility)
                 L.append(link_save)
                 
             query = "URL="+keyword[1:-1]
@@ -139,15 +139,14 @@ def search():
 def show_links():
 
     """Retrieve links saved by the user from DB"""
-    print "In show links: ", session.uid
-    query_1 = myDB.link.user_id == session.uid
+    query_1 = myDB.link.user_id == auth.user_id
     rows = myDB(query_1).select()
     L = []
     size = len(rows)
     for l in rows:
         tags = []
         tags = l.tags.split(",")
-        link_save = link(l.url, l.lid, tags, l.description, l.date, l.visibility)
+        link_save = link(l.url, l.lid, tags, l.description, l.created_date, l.visibility)
         L.append(link_save)
    
     return dict(links=L)
@@ -187,6 +186,9 @@ def login():
         redirect(URL('default', 'user'))
     return dict(form=auth())
 
+def logout():
+    print "here"
+    auth.logout()
 
 def register():
 
@@ -212,7 +214,7 @@ def chpassword():
     if request.vars.old_password:
         old = request.vars.old_password
         new = request.vars.new_passwd
-        uid = session.uid;
+        uid = auth.user_id;
         query_1 = myDB.credentials.user_id == uid;
         rows = myDB(query_1).select();
         if rows:
@@ -239,7 +241,7 @@ def addlink():
     if request.vars.id:
         query = myDB.link.lid == request.vars.id;
         r = myDB(query).select();
-        l = link(r[0].url, r[0].lid, r[0].tags, r[0].description, r[0].date, r[0].visibility)
+        l = link(r[0].url, r[0].lid, r[0].tags, r[0].description, r[0].created_date, r[0].visibility)
         return dict(link=l,update_current=1)
         
     """ Add new link else """
@@ -250,7 +252,7 @@ def addlink():
         tags = request.vars.tags
         vis = request.vars.vis;
         tm = int(time.time())
-        myDB.link.insert(user_id=session.uid, url=url, visibility=vis, tags=tags, description=desc, date=tm)
+        myDB.link.insert(user_id=auth.user_id, url=url, visibility=vis, tags=tags, description=desc, created_date=tm)
         return dict(message=T('Link has been added Successfully'))
 
     """ Add a link from followed user """
@@ -258,7 +260,7 @@ def addlink():
         print request.vars.follow_lid
         q1 = myDB.link.lid == request.vars.follow_lid
         r = myDB(q1).select()
-        l = link(r[0].url,r[0].lid, r[0].tags, r[0].description, r[0].date, "private")
+        l = link(r[0].url,r[0].lid, r[0].tags, r[0].description, r[0].created_date, "private")
         return dict(link=l,update_current=0)
 
     return dict()

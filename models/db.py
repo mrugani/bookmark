@@ -8,15 +8,10 @@
 ## if SSL/HTTPS is properly configured and you want all HTTP requests to
 ## be redirected to HTTPS, uncomment the line below:
 # request.requires_https()
-#myDB = DAL('sqlite://bookmark.sqlite',pool_size=1,check_reserved=['all'])
-myDB = DAL('mysql://root:Admin123@localhost/bookmarks')
-myDB.define_table('credentials', Field('user_id', 'id'), Field('username', requires=IS_NOT_EMPTY()) , Field('password', 'password'))
-myDB.define_table('personal_details', Field('pid','id'), Field('user_id', 'reference credentials'), Field('first_name', requires=IS_NOT_EMPTY()), Field('last_name'), Field('email', requires=IS_NOT_EMPTY()))
-myDB.define_table('link',  Field('lid','id'), Field('url', requires=IS_NOT_EMPTY()),Field('user_id', 'reference credentials'), Field('visibility'), Field('tags'), Field('description'), Field('date', 'integer'))
-myDB.define_table('follow',Field('fid','id'), Field('follower', 'reference credentials') , Field('followee' ,'reference credentials') , Field('date','integer'))
+
 if not request.env.web2py_runtime_gae:
     ## if NOT running on Google App Engine use SQLite or other DB
-    db = DAL('sqlite://storage.sqlite',pool_size=1,check_reserved=['all'])
+    myDB = DAL('sqlite://storage.sqlite',pool_size=1,check_reserved=['all'])
 else:
     ## connect to Google BigTable (optional 'google:datastore://namespace')
     db = DAL('google:datastore+ndb')
@@ -48,7 +43,7 @@ response.generic_patterns = ['*'] if request.is_local else []
 
 from gluon.tools import Auth, Service, PluginManager
 
-auth = Auth(db)
+auth = Auth(myDB)
 service = Service()
 plugins = PluginManager()
 
@@ -58,8 +53,8 @@ auth.define_tables(username=True, signature=False)
 ## configure email
 mail = auth.settings.mailer
 mail.settings.server = 'logging' if request.is_local else 'smtp.gmail.com:587'
-mail.settings.sender = 'you@gmail.com'
-mail.settings.login = 'username:password'
+mail.settings.sender = 'mruganikurtadikar@gmail.com'
+mail.settings.login = 'mruganikurtadikar:snehachavan8691'
 
 ## configure auth policy
 auth.settings.registration_requires_verification = False
@@ -90,3 +85,8 @@ use_janrain(auth, filename='private/janrain.key')
 
 ## after defining tables, uncomment below to enable auditing
 # auth.enable_record_versioning(db)
+myDB.define_table('link',  Field('lid','id'), Field('url', requires=IS_NOT_EMPTY()),Field('user_id', myDB.auth_user, requires=IS_IN_DB(myDB, 'auth_user.id')), Field('visibility'), Field('tags'), Field('description'), Field('created_date', 'integer'))
+myDB.define_table('follow',Field('fid','id'), Field('follower',myDB.auth_user, requires=IS_IN_DB(myDB, 'auth_user.id')) , Field('followee' , myDB.auth_user, requires=IS_IN_DB(myDB, 'auth_user.id')) , Field('follow_date_1','integer'))
+myDB.define_table('credentials', Field('user_id', 'id'), Field('username', requires=IS_NOT_EMPTY()) , Field('password', 'password'))
+myDB.define_table('personal_details', Field('pid','id'), Field('user_id', 'reference credentials'), Field('first_name', requires=IS_NOT_EMPTY()), Field('last_name'), Field('email', requires=IS_NOT_EMPTY()))
+

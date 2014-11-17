@@ -39,12 +39,12 @@
             print "I am here"
             follow_class = "btn btn-warning btn-sm"
             follow_text = "UNFOLLOW"
-            follow_function = "unfollow(%ld" %session.uid
+            follow_function = "unfollow(%ld" %auth.user_id
             follow_function = follow_function + "," + "%d"%user.get_user_id() + ")"
         else:
             follow_class = "btn btn-success btn-sm"
             follow_text = "FOLLOW"
-            follow_function = "follow(%ld" %session.uid
+            follow_function = "follow(%ld" %auth.user_id
             follow_function = follow_function + "," + "%d"%user.get_user_id() + ")"
         pass
 
