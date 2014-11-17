@@ -19,7 +19,14 @@ def index():
     if you need a simple wiki simply replace the two lines below with:
     return auth.wiki()
     """
-    response.flash = T("Welcome to web2py!")
+    print "ABCD "
+    if auth.user:
+        redirect(URL('default', 'user'))
+    else:
+        redirect(URL('default', 'login'))
+    
+
+def old_index():
     return dict(error=T(''))
 
 
@@ -132,6 +139,7 @@ def search():
 def show_links():
 
     """Retrieve links saved by the user from DB"""
+    print "In show links: ", session.uid
     query_1 = myDB.link.user_id == session.uid
     rows = myDB(query_1).select()
     L = []
@@ -172,19 +180,12 @@ def login():
     """
     DB changes 
     """
-    name = request.vars.username
-    password = request.vars.password
-    #myDB = DAL('mysql://root:Admin123@localhost/bookmarks')
-    query_1 = myDB.credentials.username == name
-    query_2 = myDB.credentials.password == password   
-    rows = myDB(query_1 & query_2).select()
-    if rows:
-        #redirect to home page
-        session.uid=rows[0].user_id
-        redirect('user')
-    else:
-        response.view = 'default/index.html'
-        return dict(error=T("Username/Password is wrong"))
+    print "log innn"
+    print auth.user
+    if auth.user:
+        print "here"
+        redirect(URL('default', 'user'))
+    return dict(form=auth())
 
 
 def register():
