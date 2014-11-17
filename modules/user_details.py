@@ -4,7 +4,7 @@ from link import *
 class user_details:
 
 	
-	def __init__(self, user_id, firstname, lastname, username, followers=0, followee=0, public_links=0, is_followee=0):
+	def __init__(self, user_id, firstname, lastname, username, exist=0, followers=0, followee=0, public_links=0, is_followee=0):
 
 		self.firstname=firstname
 		self.lastname=lastname
@@ -14,6 +14,7 @@ class user_details:
 		self.public_links=public_links
 		self.user_id=user_id
 		self.is_followee=is_followee
+		self.exist = exist
 
 	def get_firstname(self):
 		return self.firstname
@@ -44,3 +45,6 @@ class user_details:
 
 	def get_user_id(self):
 		return self.user_id
+
+	def get_exist(self):
+		return self.exist

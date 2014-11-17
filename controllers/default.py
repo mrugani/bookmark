@@ -35,8 +35,16 @@ def user():
     for l in rows:
         tags = []   
         tags = l.link.tags.split(",")
+        q6 = myDB.link.user_id == session.uid
+        q7 = myDB.link.url == l.link.url
+        check = myDB(q6 & q7).select()
+        if len(check)==0:
+            exist=0
+        else:
+            exist=1
+        
         link_display=link(l.link.url, l.link.lid, tags, l.link.description, l.link.date, "public")
-        user_display=user_details(l.personal_details.first_name,l.personal_details.last_name,l.credentials.username)
+        user_display=user_details(l.link.user_id,l.personal_details.first_name,l.personal_details.last_name,l.credentials.username,exist)
         user_display.set_link_details(link_display)
         L.append(user_display)
         #print user_display.firstname,user_display.lastname,user_display.username,user_display.link_details.url
