@@ -34,7 +34,9 @@
     for user in users:
         display_name = user.get_firstname()+" " + user.get_lastname()
         following = user.get_is_following()
+        print "follow: ", following
         if following:
+            print "I am here"
             follow_class = "btn btn-warning btn-sm"
             follow_text = "UNFOLLOW"
             follow_function = "unfollow(%ld" %session.uid

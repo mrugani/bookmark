@@ -79,9 +79,9 @@ def search():
                     follow = 1;
                 else:
                     follow = 0;
-
+                print follow
                 #Remaining- counts
-                user_det = user_details(id,details[0].first_name, details[0].last_name, user.username, 0, 0, 0, follow)
+                user_det = user_details(id,details[0].first_name, details[0].last_name, user.username, 0, 0, 0, 0, follow)
                 user_list.append(user_det)
             search_query = "Users="+keyword[1:-1]
             return dict(users=user_list, query=search_query)
@@ -150,6 +150,7 @@ def follow():
 
 def unfollow():
     """Remove association from follow table """
+    print "Unfollowing"
     follower = request.vars.id1;
     followee = request.vars.id2;
     query = myDB.follow.follower==follower

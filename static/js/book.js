@@ -42,6 +42,7 @@ function follow(id1, id2){
 
 function unfollow(id1, id2){
 
+	//alert(id1)
 	url = "unfollow?id1="+id1+"&id2="+id2;
 	ajax(url, [], null)
 	el = document.getElementById(id2);
