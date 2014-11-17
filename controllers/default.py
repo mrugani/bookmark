@@ -59,6 +59,7 @@ def search():
         keyword = request.vars.keyword
         option = request.vars.option
 
+        """Search by user"""
         if option == "Users":
             print "User selected ", keyword
             keyword = "%"+keyword+"%"
@@ -84,7 +85,9 @@ def search():
                 user_list.append(user_det)
             search_query = "Users="+keyword[1:-1]
             return dict(users=user_list, query=search_query)
-        #to be done later..
+        
+        #Search by tags
+
         elif option == "Tags":
             
             keyword = "%"+keyword+"%"
@@ -102,8 +105,24 @@ def search():
             query = "Tags="+keyword[1:-1]
             return dict(links=L, query=query)
 
+
+        #search by URL
         elif option == "URL":
             print "OPtion selected URL"
+            keyword = "%"+keyword+"%"
+            #check if keyword contains comma..
+            query_1 = myDB.link.user_id == session.uid
+            query_2 = myDB.link.url.like(keyword)
+            rows = myDB(query_1 & query_2).select()
+            L = []
+            for l in rows:
+                tags = []
+                tags = l.tags.split(",")
+                link_save = link(l.url, l.lid, tags, l.description, l.date, l.visibility)
+                L.append(link_save)
+                
+            query = "URL="+keyword[1:-1]
+            return dict(links=L, query=query)
 
     return dict()
 
