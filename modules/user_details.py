@@ -3,7 +3,9 @@ from link import *
 
 class user_details:
 
-	def __init__(self, user_id, firstname, lastname, username, followers, followee, public_links, is_followee=0):
+	
+	def __init__(self, user_id, firstname, lastname, username, followers=0, followee=0, public_links=0, is_followee=0):
+
 		self.firstname=firstname
 		self.lastname=lastname
 		self.username=username
