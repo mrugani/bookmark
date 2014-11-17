@@ -3,13 +3,17 @@ from link import *
 
 class user_details:
 
-	def __init__(self, firstname, lastname, username, followers=0, followee=0, public_links=0):
+	
+	def __init__(self, user_id, firstname, lastname, username, followers=0, followee=0, public_links=0, is_followee=0):
+
 		self.firstname=firstname
 		self.lastname=lastname
 		self.username=username
 		self.followers=followers
 		self.followee=followee
 		self.public_links=public_links
+		self.user_id=user_id
+		self.is_followee=is_followee
 
 	def get_firstname(self):
 		return self.firstname
@@ -34,3 +38,9 @@ class user_details:
 
 	def set_link_details(self,link):
 		self.link_details=link
+
+	def get_is_following(self):
+		return self.is_followee
+
+	def get_user_id(self):
+		return self.user_id

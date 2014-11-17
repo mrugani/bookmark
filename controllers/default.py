@@ -44,6 +44,59 @@ def user():
 
 
 def search():
+
+    """ Search by username, tags and url """
+
+    if request.vars.keyword:
+        keyword = request.vars.keyword
+        option = request.vars.option
+
+        if option == "Users":
+            print "User selected ", keyword
+            keyword = "%"+keyword+"%"
+            query = myDB.credentials.username.like(keyword)
+            rows = myDB(query).select()
+            user_list = []
+            for user in rows:
+                id = user.user_id;
+                query_2 = myDB.personal_details.user_id == id;
+                details = myDB(query_2).select()
+                query_3 = myDB.follow.follower==session.uid
+                query_4 = myDB.follow.followee==id
+
+                follow_details = myDB(query_3 & query_4).select()
+
+                if follow_details:
+                    follow = 1;
+                else:
+                    follow = 0;
+
+                #Remaining- counts
+                user_det = user_details(id,details[0].first_name, details[0].last_name, user.username, 0, 0, 0, follow)
+                user_list.append(user_det)
+            search_query = "Users="+keyword[1:-1]
+            return dict(users=user_list, query=search_query)
+        #to be done later..
+        elif option == "Tags":
+            
+            keyword = "%"+keyword+"%"
+            #check if keyword contains comma..
+            query_1 = myDB.link.user_id == session.uid
+            query_2 = myDB.link.tags.like(keyword)
+            rows = myDB(query_1 & query_2).select()
+            L = []
+            for l in rows:
+                tags = []
+                tags = l.tags.split(",")
+                link_save = link(l.url, l.lid, tags, l.description, l.date, l.visibility)
+                L.append(link_save)
+                
+            query = "Tags="+keyword[1:-1]
+            return dict(links=L, query=query)
+
+        elif option == "URL":
+            print "OPtion selected URL"
+
     return dict()
 
 
@@ -61,6 +114,20 @@ def show_links():
         L.append(link_save)
    
     return dict(links=L)
+
+def follow():
+    """Add entry in follow table """
+    follower = request.vars.id1;
+    followee = request.vars.id2;
+    myDB.follow.insert(follower=follower, followee=followee)
+
+def unfollow():
+    """Remove association from follow table """
+    follower = request.vars.id1;
+    followee = request.vars.id2;
+    query = myDB.follow.follower==follower
+    query_1 = myDB.follow.followee==followee
+    myDB(query & query_1).delete()
 
 def delete():
 
