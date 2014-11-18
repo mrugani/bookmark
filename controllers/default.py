@@ -21,6 +21,7 @@ def index():
     """
    
     if auth.user:
+        print "auth: " , auth.user_id
         redirect(URL('default', 'user'))
     else:
         redirect(URL('default', 'login'))
@@ -29,10 +30,11 @@ def index():
 def old_index():
     return dict(error=T(''))
 
-
 def user():
     """Home page of the user to display public links of people followed"""
     #print "user id", auth.user_id
+    if not auth.user:
+        redirect(URL("default", "login", args=["login"]));
     q1 = myDB.follow.follower == auth.user_id
     q2 = myDB.follow.followee == myDB.link.user_id
     q3 = myDB.link.visibility == "public"
@@ -59,7 +61,7 @@ def user():
         #print user_display.firstname,user_display.lastname,user_display.username,user_display.link_details.url
     return dict(following=L)
 
-
+@auth.requires_login() 
 def search():
 
     """ Search by username, tags and url """
@@ -141,7 +143,7 @@ def search():
 
     return dict()
 
-
+@auth.requires_login() 
 def show_links():
 
     """Retrieve links saved by the user from DB"""
@@ -157,12 +159,14 @@ def show_links():
    
     return dict(links=L)
 
+@auth.requires_login() 
 def follow():
     """Add entry in follow table """
     follower = request.vars.id1;
     followee = request.vars.id2;
     myDB.follow.insert(follower=follower, followee=followee)
 
+@auth.requires_login() 
 def unfollow():
     """Remove association from follow table """
     print "Unfollowing"
@@ -172,6 +176,7 @@ def unfollow():
     query_1 = myDB.follow.followee==followee
     myDB(query & query_1).delete()
 
+@auth.requires_login() 
 def delete():
 
     """delete the link with this id"""
@@ -188,14 +193,16 @@ def login():
     if auth.user and request.args(0)=="change_password":
         return dict(form=auth())
     if auth.user:
-        print "here"
+        print "here1"
         redirect(URL('default', 'user'))
+    #print "In login:"
     return dict(form=auth())
 
+@auth.requires_login() 
 def logout():
     print "here"
     auth.logout()
-
+    
 def register():
 
     email = request.vars.email
@@ -215,10 +222,12 @@ def register():
 def signup():
     return dict()
 
+@auth.requires_login() 
 def chpassword():
         
     return dict(form=auth.change_password())
 
+@auth.requires_login() 
 def addlink():
 
     """ Check for update link """
