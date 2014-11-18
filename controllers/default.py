@@ -185,7 +185,22 @@ def delete():
     query = myDB.link.lid == request.vars.id;
     myDB(query).delete()
 
-    
+@auth.requires_login() 
+def check_if_url_exists():
+
+    print "ajax call check"
+    id = auth.user_id;
+    url = request.vars.url;
+    query_1 = myDB.link.user_id == id
+    query_2 = myDB.link.url == url
+    rows = myDB(query_1 & query_2).select()
+    if rows:
+        print "rows"
+        response.flash="Link already exists"
+    else:
+        return ""
+         
+
 def login():
     """
     DB changes 
@@ -255,6 +270,13 @@ def addlink():
         tags = request.vars.tags
         vis = request.vars.vis;
         tm = int(time.time())
+        id = auth.user_id;
+        query_1 = myDB.link.user_id == id
+        query_2 = myDB.link.url == url
+        rows = myDB(query_1 & query_2).select()
+        if rows:
+            myDB(query_1 & query_1).update(visibility=vis, description=desc, tags=tags)
+            return dict(message=T('Link has been updated Successfully')) 
         myDB.link.insert(user_id=auth.user_id, url=url, visibility=vis, tags=tags, description=desc, created_date=tm)
         return dict(message=T('Link has been added Successfully'))
 

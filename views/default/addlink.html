@@ -14,6 +14,7 @@
     </div>
 
 {{pass}}
+<div class="flash alert alert-error">{{=response.flash or ''}}</div>
 {{
 
     url = ""
@@ -43,11 +44,12 @@
 
 }}
 <form id="addlink" class="form-horizontal" role="form" action="addlink" method="post">
-    <input type="hidden" name="lid" value={{=lid}}>
+    <input type="hidden" id="lid" name="lid" value="{{=lid}}">
     <div class="form-group">
         <label for="url" class="col-md-3 control-label">URL</label>
         <div class="col-md-7">
-            <input type="url" class="form-control" required name="url" placeholder="www.link.com" value="{{=url}}">
+            <input type="url" class="form-control" required name="url" placeholder="www.link.com" value="{{=url}}" onblur="check_url(this.value)">
+
         </div>
     </div>
     <div class="form-group">
@@ -78,7 +80,7 @@
 
     <div>
     	<button href="#" class="btn btn-primary" id="password_modal_save"> 
-            <span class="glyphicon glyphicon-floppy-disk"></span>
+            <span class="glyphicon glyphicon-floppy-disk" id="save"></span>
             {{=update}}</button>
 	</div>
     </form>
