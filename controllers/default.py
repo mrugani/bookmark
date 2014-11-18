@@ -270,7 +270,12 @@ def addlink():
 
 
 def trends():
-    return dict()
+    count = myDB.link.url.count()
+    q1 = myDB.link.visibility == "public"
+    result = myDB(q1).select(myDB.link.url, count, groupby = myDB.link.url, orderby=~count ,limitby=(0,10))
+    q2 = myDB.auth_user.id
+    no_of_users = myDB(q2).count()
+    return dict(topten=result,users=float(no_of_users))
 
 
 @cache.action()

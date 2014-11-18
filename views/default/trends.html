@@ -2,39 +2,43 @@
 <br>
 <br>
 <br>
-<div class="panel panel-default">
+<div class="panel panel-default rating-display">
 	<div class="panel-heading">
-            <div class="panel-title" style="display:inline;">Top Trending Bookmarks</div>
+            <div class="panel-title" style="display:inline;"><b>Top Trending Bookmarks</b></div>
             <div class="refresh-btn">
-            <button class="btn btn-success btn-xs"><span class="glyphicon glyphicon-refresh"></span></button>
+            <form action="trends">
+            	<button class="btn btn-success btn-sm">
+            		<span class="glyphicon glyphicon-refresh"></span>
+            	</button>
+            </form>
             </div>
     </div>
 	<table class="table table-hover table-striped" data-show-refresh="true">
 	  <thead>
-	  <tr  class="info">
-	  <th>#</th>
-	  <th>URL</th>
+	  <tr class="info">
+	  <th>Rank</th>
+	  <th>Bookmarks</th>
 	  <th>Count</th>
-	  <th>Rating</th>
+	  <th>Rating (1-10)</th>
 	  </tr>
 	  </thead>
+{{
+    if 'topten' in globals():
+    	i=1
+    	for x in topten:
+    		cnt=float(x.get('COUNT(link.url)'))
+    		rate=(cnt/users)*10
+    		rate=round(rate,2)
+}}
 	  <tr>
-	  	<td>1</td>
-	  	<td><a href="http://www.google.com" target="_blank">http://www.google.com</a></td>
-	  	<td>45</td>
-	  	<td>6.8</td>
+	  	<td>{{=i}}</td>
+	  	<td><a href="{{=x.link.url}}" target="_blank">{{=x.link.url}}</a></td>
+	  	<td>{{=x.get('COUNT(link.url)')}}</td>
+	  	<td>{{=rate}}</td>
 	  </tr>
-	  <tr>
-	  	<td>2</td>
-	  	<td>http://www.yahoo.co.in</td>
-	  	<td>15</td>
-	  	<td>3.1</td>
-	  </tr>
-	  <tr>
-	  	<td>3</td>
-	  	<td>http://www.facebook.com</td>
-	  	<td>13</td>
-	  	<td>2.6</td>
-	  </tr>
+{{
+	i=i+1
+	pass}}
+{{pass}}
 	</table>
 </div>
