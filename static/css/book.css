@@ -200,3 +200,7 @@ select{
 	width: 80%;
 	margin-top: 5%;
 }
+.refresh-btn{
+	float:right;
+	display:inline;
+}
