@@ -265,7 +265,8 @@ def addlink():
     return dict()
 
 
-
+def trends():
+    return dict()
 
 
 @cache.action()
