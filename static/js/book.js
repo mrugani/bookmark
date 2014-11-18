@@ -51,3 +51,18 @@ function unfollow(id1, id2){
 	el.className = "btn btn-success btn-sm"
 	el.onclick = function () { follow(id1, id2) };
 }
+
+function link_exists(val){
+
+	alert(val)
+	if(val!=""){
+		document.getElementById("save").textContent = "Update Link"
+	}
+}
+
+function check_url(value){
+
+	//alert(value)
+	ajax("check_if_url_exists",['url'],  "link_warning");
+	node = document.getElementById("link_warning")
+}
