@@ -77,11 +77,17 @@ def search():
             user_list = []
             for user in rows:
                 id = user.id;
+                query_1 = myDB.follow.follower == id
+                following = myDB(query_1).count()
+                query_1 = myDB.follow.followee == id
+                followers = myDB(query_1).count()
                 query_2 = myDB.auth_user.id == id;
                 details = myDB(query_2).select()
                 query_3 = myDB.follow.follower==auth.user_id
                 query_4 = myDB.follow.followee==id
-
+                query_5 = myDB.link.user_id == id
+                query_6 = myDB.link.visibility == "public"
+                public_links = myDB(query_5 & query_6).count()
                 follow_details = myDB(query_3 & query_4).select()
 
                 if follow_details:
@@ -90,7 +96,7 @@ def search():
                     follow = 0;
                 print follow
                 #Remaining- counts
-                user_det = user_details(id,details[0].first_name, details[0].last_name, user.username, 0, 0, 0, 0, follow)
+                user_det = user_details(id,details[0].first_name, details[0].last_name, user.username, 0, followers, following, public_links, follow)
                 user_list.append(user_det)
             search_query = "Users="+keyword[1:-1]
             return dict(users=user_list, query=search_query)
@@ -179,8 +185,8 @@ def login():
     """
     DB changes 
     """
-    print "log innn"
-    print auth.user
+    if auth.user and request.args(0)=="change_password":
+        return dict(form=auth())
     if auth.user:
         print "here"
         redirect(URL('default', 'user'))
@@ -210,20 +216,8 @@ def signup():
     return dict()
 
 def chpassword():
-
-    if request.vars.old_password:
-        old = request.vars.old_password
-        new = request.vars.new_passwd
-        uid = auth.user_id;
-        query_1 = myDB.credentials.user_id == uid;
-        rows = myDB(query_1).select();
-        if rows:
-            if rows[0].password != old:
-                return dict(error=T(''))
-        myDB(query_1).update(password=new)
-        return dict(message=T(''))        
-
-    return dict()
+        
+    return dict(form=auth.change_password())
 
 def addlink():
 

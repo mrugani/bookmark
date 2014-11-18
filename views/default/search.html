@@ -46,6 +46,7 @@
             follow_text = "FOLLOW"
             follow_function = "follow(%ld" %auth.user_id
             follow_function = follow_function + "," + "%d"%user.get_user_id() + ")"
+
         pass
 
 }}
@@ -60,15 +61,17 @@
                 @{{=user.get_username()}} <sup>.</sup> Joined 16-11-2014
             </div>
             <div class="col-md-1 pull-right">
+                {{if auth.user_id!= user.get_user_id(): }}
                 <button href="#" class="{{=follow_class}}"id="{{=user.get_user_id()}}" onclick="{{=follow_function}}"><strong>{{=follow_text}}</strong></button> 
+                {{pass}}
             </div>
         </div>
 
         <div class="col-md-11">
             <div class="col-md-10 wrap-link">
-               <label class="search_display">10 </label> <label class="txt"> Followers </label>
-               <label class="search_display">10 </label> <label class="txt"> Following </label>
-               <label class="search_display">10 </label> <label class="txt"> Public Links </label>
+               <label class="search_display">{{=user.get_followers()}} </label> <label class="txt"> Followers </label>
+               <label class="search_display">{{=user.get_followee()}} </label> <label class="txt"> Following </label>
+               <label class="search_display">{{=user.get_public_links()}} </label> <label class="txt"> Public Links </label>
             </div>
          </div>
 
