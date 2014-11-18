@@ -21,6 +21,7 @@ def index():
     """
    
     if auth.user:
+        print "auth: " , auth.user_id
         redirect(URL('default', 'user'))
     else:
         redirect(URL('default', 'login'))
@@ -188,14 +189,16 @@ def login():
     if auth.user and request.args(0)=="change_password":
         return dict(form=auth())
     if auth.user:
-        print "here"
+        print "here1"
         redirect(URL('default', 'user'))
+    #print "In login:"
     return dict(form=auth())
 
 def logout():
     print "here"
     auth.logout()
-
+    
+@auth.requires_login() 
 def register():
 
     email = request.vars.email
@@ -215,10 +218,12 @@ def register():
 def signup():
     return dict()
 
+@auth.requires_login() 
 def chpassword():
         
     return dict(form=auth.change_password())
 
+@auth.requires_login() 
 def addlink():
 
     """ Check for update link """
