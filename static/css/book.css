@@ -72,6 +72,33 @@
     background: #DAE9F4;
 }
 
+div.flash:hover {
+    opacity: 0.25;
+}
+
+/*div.flash {
+    font-weight: bold;
+    display: none;
+    position: fixed;
+    padding: 10px;
+    top: 48px;
+    right: 250px;
+    min-width: 280px;
+    opacity: 0.95;
+    margin: 0px 0px 10px 10px;
+    vertical-align: middle;
+    cursor: pointer;
+    color: #FFF;
+    background-color: #000;
+    border: 2px solid #FFF;
+    border-radius: 8px;
+    background-image: -moz-linear-gradient(90deg, #222, #000);
+    background-repeat: repeat-x;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    z-index: 2000;
+}*/
+
+
 span.tags 
 {
     background: #A9A9A9;
@@ -154,4 +181,22 @@ select{
 .search_results{
 
 	font-size: 15px;
+}
+#loginbox{
+	float: right;
+}
+
+.panel-body{
+	padding-top: 30px;
+}
+.panel-info{
+	width: 90%;
+}
+#auth_user_username{
+	width: 80%;
+	margin-top: 1%;
+}
+#auth_user_password{
+	width: 80%;
+	margin-top: 5%;
 }

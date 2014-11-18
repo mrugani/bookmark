@@ -10,13 +10,13 @@
     </div>
 </header>
 
-<div id="loginbox" style="float:right;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+<div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
     <div class="panel panel-info">
         <div class="panel-heading">
             <div class="panel-title">{{=T( request.args(0).replace('_',' ').capitalize() )}}</div>
         </div>
 
-        <div style="padding-top:30px" class="panel-body" >
+        <div class="panel-body" >
 			<div id="web2py_user_form">
 				{{
 				if request.args(0)=='login' and not session.auth_2_factor_user:
