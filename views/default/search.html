@@ -1,5 +1,7 @@
 
-{{extend 'main.html'}}
+{{extend 'main.html'
+}}
+{{import datetime}}
 <br>
 <br>
 <br>
@@ -58,7 +60,7 @@
             </div>
 
             <div class="username-date-display">
-                @{{=user.get_username()}} <sup>.</sup> Joined 16-11-2014
+                @{{=user.get_username()}} <sup>.</sup> Joined on {{=datetime.datetime.fromtimestamp(user.get_date()).strftime('%d-%m-%Y')}}
             </div>
             <div class="col-md-1 pull-right">
                 {{if auth.user_id!= user.get_user_id(): }}
