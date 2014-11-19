@@ -237,14 +237,19 @@ select{
     font-weight: bold;
     color: #5F5F5F;
 }
-.bk1{
+
+.bk1,.bk3,.bk4,.bk5{
 	
 	margin-left: 6%;
+	margin-bottom: 1%;
 }
 .bk2{
 	
-	margin-left: 30%;
+	margin-left: 28%;
 	margin-top: 3%;
+}
+.bk5{
+	margin-left: 9%;
 }
 
 /*Mrugani*/
@@ -300,4 +305,10 @@ select{
 
 	margin-left: 54%;
 	margin-top: 4%;
+}
+.username-navbar{
+	color: #ffffff;
+	margin-top: 8%;
+	font-weight: bold;
+	font-size: 1.1em;
 }

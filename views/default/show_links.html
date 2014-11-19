@@ -3,6 +3,15 @@
 <br>
 <br>
 <div class="container1 " style="margin-left:10%;" >
+<div class="panel panel-info ">
+        <div class="panel-heading">
+            <div class="panel-title" style="display:inline;">My Bookmarks</div>
+            <div style="float:right;display:inline;">
+                Public 
+                Private
+            </div>
+        </div>
+        <div class="panel-body" >
 {{
     import datetime
     if 'links' in globals():
@@ -11,42 +20,45 @@
 }}
 
 
-    <div class="row well" style="width:80%; margin-left:2%;" id={{=x.get_lid()}}>
-        
-        <div class="col-md-11">
-        
-            <div class="col-md-10 wrap-link">
-                {{if x.is_private() == 0:}}
-                    <h4><b><a href='{{=x.get_url()}}' target="_blank">{{=x.get_url()}}</a></b></h4>
-                {{else:}}
-                    <h4><b><a href='{{=x.get_url()}}' target="_blank" style="color:#FF8000">{{=x.get_url()}}</a></b></h4>
-                {{pass}}
-            </div>
-            <div class="col-md-2 pull-right" style="margin-top:1%;">     
-                <button class="btn btn-primary btn-xs glyphicon glyphicon-pencil" style="margin-left:40%;" onclick="update_link({{=x.get_lid()}})"></button>
-                <button class="btn btn-primary btn-xs pull-right glyphicon glyphicon-trash" onclick="delete_link({{=x.get_lid()}})"></button>
-            </div>   
-        </div>
+                <div class="row well" style="width:80%; margin-left:2%;" id={{=x.get_lid()}}>
+                    
+                    <div class="col-md-11">
+                    
+                        <div class="col-md-10 wrap-link">
+                            {{if x.is_private() == 0:}}
+                                <h4><b><a href='{{=x.get_url()}}' target="_blank">{{=x.get_url()}}</a></b></h4>
+                            {{else:}}
+                                <h4><b><a href='{{=x.get_url()}}' target="_blank" style="color:#FF8000">{{=x.get_url()}}</a></b></h4>
+                            {{pass}}
+                        </div>
+                        <div class="col-md-2 pull-right" style="margin-top:1%;">     
+                            <button class="btn btn-primary btn-xs glyphicon glyphicon-pencil" style="margin-left:40%;" onclick="update_link({{=x.get_lid()}})"></button>
+                            <button class="btn btn-primary btn-xs pull-right glyphicon glyphicon-trash" onclick="delete_link({{=x.get_lid()}})"></button>
+                        </div>   
+                    </div>
 
 
-        <div class="col-md-11 text-center">
-            <div class="col-md-12">
-            <p><strong>Description: </strong>{{=x.get_desc()}} </p>
-            <p><strong>Tags: </strong>
-                {{ for t in x.get_tags():
-                    if t!="":
-                }}
-                    <span class="tags">{{=t}}</span> 
-                {{pass}}
-                {{pass}}
-            </p>
-        </div>
-        </div> 
-        <div class="date-display">
-            {{=datetime.datetime.fromtimestamp(x.get_date()).strftime('%d-%m-%Y')}}
-        </div>         
-    </div>
+                    <div class="col-md-11 text-center">
+                        <div class="col-md-12">
+                        <p><strong>Description: </strong>{{=x.get_desc()}} </p>
+                        <p><strong>Tags: </strong>
+                            {{ for t in x.get_tags():
+                                if t!="":
+                            }}
+                                <span class="tags">{{=t}}</span> 
+                            {{pass}}
+                            {{pass}}
+                        </p>
+                    </div>
+                    </div> 
+                    <div class="date-display">
+                        {{=datetime.datetime.fromtimestamp(x.get_date()).strftime('%d-%m-%Y')}}
+                    </div>         
+                </div>
+            
  {{pass}}
 </div>
 
  {{pass}}
+ </div>
+ </div>

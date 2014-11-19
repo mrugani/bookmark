@@ -64,7 +64,7 @@ uncomment to load jquery-ui //-->
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 <div class="container-fluid">
 <div class="navbar-header">
-<a class="navbar-brand" href="user">this.Save</a>
+<a class="navbar-brand" href="user"><span class="glyphicon glyphicon-bookmark"></span> <b>this.Save</b></a>
 </div>
 
 <div class="collapse navbar-collapse">
@@ -134,7 +134,12 @@ uncomment to load jquery-ui //-->
     
 </ul>
 <ul class="nav navbar-nav navbar-right">
-    <li><a href="logout">
+    <li class="username-navbar"><span class="glyphicon glyphicon-user" > </span>
+    {{=auth.user.username}}
+    </li>
+    <li><a></a></li>
+    <li>
+    <a href="logout">
         <span class="glyphicon glyphicon-off"></span>
         Logout</a></li>
 </ul>

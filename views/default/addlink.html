@@ -43,45 +43,53 @@
     pass
 
 }}
-<form id="addlink" class="form-horizontal" role="form" action="addlink" method="post">
-    <input type="hidden" id="lid" name="lid" value="{{=lid}}">
-    <div class="form-group">
-        <label for="url" class="col-md-3 control-label">URL</label>
-        <div class="col-md-7">
-            <input type="url" class="form-control" required name="url" placeholder="http://www.link.com" value="{{=url}}" onblur="check_url(this.value)">
+<div class="panel panel-info ">
+        <div class="panel-heading">
+            <div class="panel-title">Add Links</div>
+        </div>
+        <div class="panel-body" >
+            <form id="addlink" class="form-horizontal" role="form" action="addlink" method="post">
+                <input type="hidden" id="lid" name="lid" value="{{=lid}}">
+                <div class="form-group">
+                    <label for="url" class="col-md-3 control-label">URL</label>
+                    <div class="col-md-7">
+                        <input type="url" class="form-control" required name="url" placeholder="http://www.link.com" value="{{=url}}" onblur="check_url(this.value)">
 
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="desc" class="col-md-3 control-label">Description</label>
-        <div class="col-md-7">
-            <textarea class="form-control" name="description" placeholder="Add description here.." >{{=desc}}</textarea>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="tags" class="col-md-3 control-label">Tags</label>
-        <div class="col-md-7">
-            <input type="text" class="form-control" name="tags" placeholder="tag1,tag2.." value="{{=tags}}">
-           <span class="help-block"><small>Enter comma seperated values.</small></span>
-        </div>
-    </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="desc" class="col-md-3 control-label">Description</label>
+                    <div class="col-md-7">
+                        <textarea class="form-control" name="description" placeholder="Add description here.." >{{=desc}}</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="tags" class="col-md-3 control-label">Tags</label>
+                    <div class="col-md-7">
+                        <input type="text" class="form-control" name="tags" placeholder="tag1,tag2.." value="{{=tags}}">
+                       <span class="help-block"><small>Enter comma seperated values.</small></span>
+                    </div>
+                </div>
 
-    <div class="form-group">
-        <label for="visibility" class="col-md-3 control-label">Visibility</label>
-        <div class="col-md-7">
-            <label class="radio-inline">
-                <input type="radio" name="vis" id="private" value="private" {{=ch}}>Private
-            </label>
-             <label class="radio-inline">
-                <input type="radio" name="vis" id="public" value="public" {{=ch1}}>Public
-            </label>
-        </div>
-    </div>    
+                <div class="form-group">
+                    <label for="visibility" class="col-md-3 control-label">Visibility</label>
+                    <div class="col-md-7">
+                        <label class="radio-inline">
+                            <input type="radio" name="vis" id="private" value="private" {{=ch}}>Private
+                        </label>
+                         <label class="radio-inline">
+                            <input type="radio" name="vis" id="public" value="public" {{=ch1}}>Public
+                        </label>
+                    </div>
+                </div>    
 
-    <div>
-        <button href="#" class="btn btn-primary" id="password_modal_save"> 
-            <span class="glyphicon glyphicon-floppy-disk" id="save"></span>
-            {{=update}}</button>
-    </div>
-    </form>
+                <div>
+                    <button href="#" class="btn btn-primary" id="password_modal_save"> 
+                        <span class="glyphicon glyphicon-floppy-disk" id="save"></span>
+                        {{=update}}</button>
+                </div>
+                </form>
+        </div>
 </div>
+</div>
+
