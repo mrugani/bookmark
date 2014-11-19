@@ -3,14 +3,16 @@
 <br>
 <br>
 <!--h3> Recent activities </h3-->
-
+{{
+    import datetime
+}}
 <div >
 
 <div class="col-md-3 well" id="profile">
 <strong> Welcome, </strong>
 <h4 style="color:#DF3A01;"><span class="glyphicon glyphicon-user" > </span>
 <b>{{=user.get_firstname()}} {{=user.get_lastname()}}</b></h4>
-<p style="color:grey;"> <label> Joined On: Nov 16, 2014</label> </p>
+<p style="color:grey;"> <label> Joined On: {{=datetime.datetime.fromtimestamp(user.get_date()).strftime('%d-%m-%Y')}}</label> </p>
 <table class="table">
  <tr>
     <td><p> <h3><strong class="count">{{=user.get_followers()}} </strong></h3></p><b> Followers</b></td>
@@ -29,7 +31,8 @@
 </div>
 
 <div class="container1 col-md-9" style="margin-left:2%;float:left;width:75%;display: inline-block;vertical-align: top; " >
-{{if 'following' in globals():
+{{
+    if 'following' in globals():
     if len(following) !=0:
 }}
 <h4 style="color:#6E6E6E;"><b> Recent Activities: </b> </h4>

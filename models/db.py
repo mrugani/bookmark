@@ -8,6 +8,7 @@
 ## if SSL/HTTPS is properly configured and you want all HTTP requests to
 ## be redirected to HTTPS, uncomment the line below:
 # request.requires_https()
+import time
 
 if not request.env.web2py_runtime_gae:
     ## if NOT running on Google App Engine use SQLite or other DB
@@ -48,6 +49,8 @@ service = Service()
 plugins = PluginManager()
 
 ## create all tables needed by auth if not custom tables
+auth.settings.extra_fields['auth_user']= [ Field('Joining_date', default=int(time.time()), writable=False ,readable=False)]
+
 auth.define_tables(username=True, signature=False)
 
 ## configure email
@@ -55,7 +58,6 @@ mail = auth.settings.mailer
 mail.settings.server = 'smtp.gmail.com:587'
 mail.settings.sender = 'this.save.bookmark@gmail.com'
 mail.settings.login = 'this.save.bookmark@gmail.com:Admin!@#'
-
 ## configure auth policy
 auth.settings.registration_requires_verification = True
 auth.settings.registration_requires_approval = False
@@ -91,4 +93,4 @@ myDB.define_table('link',  Field('lid','id'), Field('url', requires=IS_NOT_EMPTY
 myDB.define_table('follow',Field('fid','id'), Field('follower',myDB.auth_user, requires=IS_IN_DB(myDB, 'auth_user.id')) , Field('followee' , myDB.auth_user, requires=IS_IN_DB(myDB, 'auth_user.id')) , Field('follow_date_1','integer'))
 myDB.define_table('credentials', Field('user_id', 'id'), Field('username', requires=IS_NOT_EMPTY()) , Field('password', 'password'))
 myDB.define_table('personal_details', Field('pid','id'), Field('user_id', 'reference credentials'), Field('first_name', requires=IS_NOT_EMPTY()), Field('last_name'), Field('email', requires=IS_NOT_EMPTY()))
-
+myDB.define_table('test', Field('tm', default=int(time.time())))

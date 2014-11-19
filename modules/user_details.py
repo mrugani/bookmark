@@ -15,6 +15,7 @@ class user_details:
 		self.user_id=user_id
 		self.is_followee=is_followee
 		self.exist = exist
+		self.joining_date=0
 
 	def get_firstname(self):
 		return self.firstname
@@ -48,3 +49,9 @@ class user_details:
 
 	def get_exist(self):
 		return self.exist
+
+	def set_joining_date(self, d):
+		self.joining_date = d;
+
+	def get_date(self):
+		return self.joining_date

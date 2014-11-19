@@ -46,7 +46,7 @@ def user():
     following = get_followers(myDB, auth.user_id)
     #Taking last entry as private link
     logged_in = user_details(user_info[0].id, user_info[0].first_name, user_info[0].last_name, user_info[0].username, 0,followers,following,public_links,private_links);
-
+    logged_in.set_joining_date(int(user_info[0].Joining_date))
 
     #Siji------
     q1 = myDB.follow.follower == auth.user_id
@@ -118,6 +118,7 @@ def search():
                 print follow
                 #Remaining- counts
                 user_det = user_details(id,details[0].first_name, details[0].last_name, user.username, 0, followers, following, public_links, follow)
+                user_det.set_joining_date(int(details[0].Joining_date))
                 user_list.append(user_det)
             search_query = "Users="+keyword[1:-1]
             return dict(users=user_list, query=search_query)
@@ -184,6 +185,11 @@ def follow():
     follower = request.vars.id1;
     followee = request.vars.id2;
     myDB.follow.insert(follower=follower, followee=followee)
+    email_id = myDB(myDB.auth_user.id == followee).select(myDB.auth_user.email)
+    print email_id[0].email
+    subject = "Bookmarks "+auth.user.username + " is following you on this.save app"
+    content = ""+ "\n\n\n\n\nRegards,\n"+"Admin\nthis.save\n";
+    mail.send(email_id[0].email, subject, content)
 
 @auth.requires_login() 
 def unfollow():
