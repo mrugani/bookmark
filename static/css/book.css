@@ -236,21 +236,28 @@ select{
 	margin-top: 2%;
     font-weight: bold;
     color: #5F5F5F;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+.logo-head{
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
-.bk1,.bk3,.bk4,.bk5{
+.bk1{
 	
 	margin-left: 6%;
-	margin-bottom: 1%;
+	width: 25%;
 }
 .bk2{
 	
-	margin-left: 28%;
-	margin-top: 3%;
+	margin-left: 6%;
+	width: 25%;
 }
-.bk5{
-	margin-left: 9%;
+
+.bk4{
+	margin-left: 6%;
+	width: 25%;
 }
+
 
 /*Mrugani*/
 #link_warning{
