@@ -92,6 +92,7 @@
             <p><strong>Tags: </strong>
                 {{ for t in x.link_details.get_tags():
                     if t!="":
+                        t = t.strip()
                 }}
                         <span class="tags">{{=t}}</span> 
                 {{pass}}
