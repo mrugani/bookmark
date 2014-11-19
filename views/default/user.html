@@ -39,11 +39,20 @@
 {{pass}}
 {{
 
-    if len(following) == 0:
+    if len(following) == 0 and user.get_followee()==0:
 }}
     <div class="col-md-10 alert alert-info">
     <h4 style="text-align:center;color:#0040FF;"> <span class="glyphicon glyphicon-info-sign"> </span>  You have not followed any users currently. To get recent updates, click <b><a href="search"> here </b></a>to search and follow other users you know on <b>this.Save</b> network</h4>
 </div>
+
+{{
+    elif len(following) == 0 and user.get_followee()!=0:
+
+}}
+<div class="col-md-11 alert alert-info">
+    <h4 style="text-align:center;color:#0040FF;"> <span class="glyphicon glyphicon-info-sign"> </span>  There are no public links shared by the users you have followed. To get recent updates, click <b><a href="search"> here </b></a>to search and follow other users you know on <b>this.Save</b> network</h4>
+</div>
+
 {{pass}}
 {{pass}}
 {{

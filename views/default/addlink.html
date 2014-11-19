@@ -1,12 +1,12 @@
 {{extend 'main.html'}}
 <div class="flash alert alert-danger" id="link_warning">{{=response.flash or ''}}</div>
 
-<div id="add_link" class="mainbox col-md-8">
+<div id="add_link" class="mainbox col-md-9">
   {{if 'message' in globals():
 
   }}
 
-    <div class="alert alert-success link_success">
+    <div class="alert alert-success link_success  col-md-offset-3">
 
         <a href="#" class="close" data-dismiss="alert">&times;</a>
 
