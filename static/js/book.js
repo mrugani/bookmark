@@ -35,9 +35,12 @@ function follow(id1, id2){
 	url = "follow?id1="+id1+"&id2="+id2;
 	ajax(url, [], null)
 	el = document.getElementById(id2);
-	el.innerHTML = "UNFOLLOW"
+	el.innerHTML = "<strong>UNFOLLOW</strong>"
 	el.className = "btn btn-warning btn-sm"
 	el.onclick = function () { unfollow(id1, id2) };
+	node = document.getElementById("follower_cnt")
+	val = parseInt(node.innerHTML)
+	node.textContent = val + 1;
 }
 
 function unfollow(id1, id2){
@@ -47,9 +50,12 @@ function unfollow(id1, id2){
 	ajax(url, [], null)
 	el = document.getElementById(id2);
 	//alert(el.class)
-	el.innerHTML = "FOLLOW"
+	el.innerHTML = "<strong>FOLLOW</strong>"
 	el.className = "btn btn-success btn-sm"
 	el.onclick = function () { follow(id1, id2) };
+	node = document.getElementById("follower_cnt")
+	val = parseInt(node.innerHTML)
+	node.textContent = val - 1;
 }
 
 function link_exists(val){
