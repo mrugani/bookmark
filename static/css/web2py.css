@@ -93,15 +93,13 @@ div.flash {
     display:none;
     position:fixed;
     padding:10px;
-    top:48px;
+    /*top:48px;
     right:250px;
-    min-width:280px;
+    min-width:280px;*/
     opacity:0.95;
-    margin:0px 0px 10px 10px;
-    vertical-align:middle;
+   /* margin:0px 0px 10px 10px;*/
+    /*vertical-align:middle;*/
     cursor:pointer;
-    color:#fff;
-    background-color:#000;
     border:2px solid #fff;
     border-radius:8px;
     -o-border-radius: 8px;
@@ -109,12 +107,6 @@ div.flash {
     -webkit-border-radius:8px;
     background-image: -webkit-linear-gradient(top,#222,#000);
     background-image: -o-linear-gradient(top,#222,#000);
-    background-image: -moz-linear-gradient(90deg, #222, #000);
-    background-image: linear-gradient(top,#222,#000);
-    background-repeat: repeat-x;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    z-index:2000;
 }
 
 div.flash #closeflash{color:inherit; float:right; margin-left:15px;}

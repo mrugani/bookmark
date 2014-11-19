@@ -3,65 +3,104 @@
 <br>
 <br>
 <!--h3> Recent activities </h3-->
-<div class="container1 " style="margin-left:10%;" >
 
+<div >
+
+<div class="col-md-3 well" id="profile">
+<strong> Welcome, </strong>
+<h4 style="color:#DF3A01;"><span class="glyphicon glyphicon-user" > </span>
+<b>{{=user.get_firstname()}} {{=user.get_lastname()}}</b></h4>
+<p style="color:grey;"> <label> Joined On: Nov 16, 2014</label> </p>
+<table class="table">
+ <tr>
+    <td><p> <h3><strong class="count">{{=user.get_followers()}} </strong></h3></p><b> Followers</b></td>
+
+    <td><p> <h3><strong class="count"> {{=user.get_followee()}} </strong></h3></p><b> Following</b></td>
+ </tr>
+
+ <tr>
+    <td><p> <h3><strong class="count"> {{=user.get_public_links()}}  </strong></h3></p><b> Public Links </b></td>
+
+    <td><p> <h3><strong class="count"> {{=user.get_is_following()}} </strong></h3></p><b>Private Links<b></td>
+ </tr>
+
+</table>
+<a class="btn-success btn-sm" style="margin-left:20%;" href="edit_profile"><b> <span class="glyphicon glyphicon-edit"></span> Edit Profile </b></a>
+</div>
+
+<div class="container1 col-md-9" style="margin-left:2%;float:left;width:75%;display: inline-block;vertical-align: top; " >
+{{if 'following' in globals():
+    if len(following) !=0:
+}}
+<h4 style="color:#6E6E6E;"><b> Recent Activities: </b> </h4>
+{{pass}}
+{{
+
+    if len(following) == 0:
+}}
+    <div class="col-md-10 alert alert-info">
+    <h4 style="text-align:center;color:#0040FF;"> <span class="glyphicon glyphicon-info-sign"> </span>  You have not followed any users currently. To get recent updates, click <b><a href="search"> here </b></a>to search and follow other users you know on <b>this.Save</b> network</h4>
+</div>
+{{pass}}
+{{pass}}
 {{
     import datetime
     if 'following' in globals():
        for x in following:
             saved=0 
-       		if x.exist:
-       			saved=1
-       			pass
+            if x.exist:
+                saved=1
+                pass
 
 }}
-
 
     <div class="row well" style="width:80%; margin-left:2%;" id={{=x.link_details.get_lid()}}>
         
         <div class="col-md-11">
-        	<div class="followee-display"> <b>
-        			{{=x.get_firstname()}} {{=x.get_lastname()}}</b>
-        	</div>
+            <div class="followee-display"> <b>
+                    {{=x.get_firstname()}} {{=x.get_lastname()}}</b>
+            </div>
 
-        	<div class="username-date-display">
-        		@{{=x.get_username()}} <sup>.</sup> 
-        		{{=datetime.datetime.fromtimestamp(x.link_details.get_date()).strftime('%d-%m-%Y')}}
-        	</div>
+            <div class="username-date-display">
+                @{{=x.get_username()}} <sup>.</sup> 
+                {{=datetime.datetime.fromtimestamp(x.link_details.get_date()).strftime('%d-%m-%Y')}}
+            </div>
         </div>
 
-        <div class="col-md-11">
-        	<div class="col-md-12 wrap-link">
-            	<h4><a href='{{=x.link_details.url}}' target="_blank">{{=x.link_details.get_url()}}</a></h4>
+        <div class="col-md-11" style="margin-top:1%;">
+            <div class="col-md-12 wrap-link">
+                <b><a href='{{=x.link_details.url}}' target="_blank">{{=x.link_details.get_url()}}</a></b>
             </div>
-    	 </div>
+         </div>
 
 
-        <div class="col-md-11 text-center">
+        <div class="col-md-11 text-center" style="margin-top:1%;">
             <div class="col-md-12">
             <p><strong>Description: </strong>{{=x.link_details.get_desc()}}</p>
             <p><strong>Tags: </strong>
-	            {{ for t in x.link_details.get_tags():
-	                if t!="":
-	            }}
-	                    <span class="tags">{{=t}}</span> 
+                {{ for t in x.link_details.get_tags():
+                    if t!="":
+                }}
+                        <span class="tags">{{=t}}</span> 
                 {{pass}}
                 {{pass}}
             </p>
         </div>
         </div>     
-	 	<div class="col-md-11">  
-	 	
-	 		<div class="col-md-10"> 
-	 		{{ if saved==0: }}  
-	        	<button class="btn btn-info btn-sm" style="margin-top:2%;" onclick="add_to_my_link({{=x.link_details.get_lid()}})"><strong>Add to My Links</strong></button>
-	        
-	        {{ pass }}
-	        
-	        </div>
-	   
-	    </div> 
+        <div class="col-md-11">  
+        
+            <div class="col-md-12 col-md-offset-1"> 
+            {{ if saved==0: }}  
+                <button class="btn btn-success btn-sm" style="float:right;" onclick="add_to_my_link({{=x.link_details.get_lid()}})"> <span class="glyphicon glyphicon-plus"> </span><strong> Add</strong></button>
+            
+            {{ pass }}
+            
+            </div>
+       
+        </div> 
     </div> 
 {{pass}}
 </div>
 {{pass}}
+
+</div>

@@ -75,13 +75,13 @@
 div.flash:hover {
     opacity: 0.25;
 }
-
+/*
 div.flash {
     font-weight: bold;
     display: none;
     position: fixed;
     padding: 10px;
-    top: 48px;
+    top: 200px;
     right: 250px;
     min-width: 280px;
     opacity: 0.95;
@@ -97,14 +97,16 @@ div.flash {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     z-index: 2000;
 }
-
+*/
 
 span.tags 
 {
-    background: #A9A9A9;
+	
+	color: #0852b9;
+	background-color: #d6e6f2;
     border-radius: 2px;
-    color: #f5f5f5;
-    font-weight: bold;
+    font-size: 1.1em;
+    box-shadow: 1px 1px #666666;
     padding: 2px 4px;
     
 }
@@ -141,12 +143,13 @@ margin-top:2%;
 }
 
 .wrap-link{
+	font-size: 1.0em;
     display: inline-block;
     word-wrap: break-word;
 }
 .followee-display{
-	color: #428BCA;
-	font-size: 1.3em;
+	/*color: #38610B;*/
+	font-size: 1.2em;
 	display: inline;
 	margin-left: 15px;
 }
@@ -183,21 +186,19 @@ select{
 	font-size: 15px;
 }
 #loginbox{
-	float: right;
+	margin-top: 5%;
 }
-
 .panel-body{
 	padding-top: 30px;
+
 }
-.panel-info{
-	width: 90%;
-}
+
 #auth_user_username{
-	width: 80%;
+	
 	margin-top: 1%;
 }
 #auth_user_password{
-	width: 80%;
+	
 	margin-top: 5%;
 }
 .refresh-btn{
@@ -209,4 +210,94 @@ select{
 	width: 75%;
 	margin-left: auto;
     margin-right: auto;
+}
+.footer{
+	border-top: none;
+}
+.row, #lay {
+	width: 100%;
+	margin-right: 0%;
+
+}
+.display-login{
+	width:100%;
+	margin-left: 32%;
+}
+.w2p-form-button{
+	margin-left: 4%;
+}
+.advertise div{
+	
+	width: 20%;
+	display: inline;
+}
+#main-head{
+	text-align: center;
+	margin-top: 2%;
+    font-weight: bold;
+    color: #5F5F5F;
+}
+.bk1{
+	
+	margin-left: 6%;
+}
+.bk2{
+	
+	margin-left: 30%;
+	margin-top: 3%;
+}
+
+/*Mrugani*/
+#link_warning{
+
+	width:20%;
+	margin-top: 3%;
+	margin-left: 16%;
+}
+
+.layout_alert{
+
+	width:25%;
+	margin-top: 8%;
+	margin-left: 55%;	
+}
+
+#profile{
+
+	box-shadow: 10px 10px 3px #BDBDBD;
+	border-radius: 8px;
+	float:left;
+	width:22%;
+	display:inline-block;
+	vertical-align: top;
+
+}
+
+.count{
+	color:#2E64FE;
+}
+
+#no_table_old_password, #no_table_new_password, #no_table_new_password2, #no_table_old_password__label, #no_table_new_password__label, #no_table_new_password2__label{
+
+	margin-bottom: 4%;
+	margin-left: 20%;
+}
+
+.chpassword{
+
+	width:40%;
+	margin-left: 6%;
+	margin-top:3%;
+}
+
+.edit_profile input{
+
+	margin-left: 20%;
+	margin-bottom: 3%;
+}
+
+.edit_profile label{
+
+	margin-left: 54%;
+	margin-top: 4%;
 }

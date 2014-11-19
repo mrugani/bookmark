@@ -11,6 +11,7 @@
 import time
 from link import *
 from user_details import *
+from display import *
 def index():
     """
     example action using the internationalization operator T and flash
@@ -35,6 +36,19 @@ def user():
     #print "user id", auth.user_id
     if not auth.user:
         redirect(URL("default", "login", args=["login"]));
+    #Mrugani---
+    q0 = myDB.auth_user.id == auth.user_id
+    user_info = myDB(q0).select()
+    public_links = get_public_links_count(myDB, auth.user_id)
+    private_links = get_private_links_count(myDB, auth.user_id)
+    followers =get_followees(myDB, auth.user_id)
+    print "followers: " , followers
+    following = get_followers(myDB, auth.user_id)
+    #Taking last entry as private link
+    logged_in = user_details(user_info[0].id, user_info[0].first_name, user_info[0].last_name, user_info[0].username, 0,followers,following,public_links,private_links);
+
+
+    #Siji------
     q1 = myDB.follow.follower == auth.user_id
     q2 = myDB.follow.followee == myDB.link.user_id
     q3 = myDB.link.visibility == "public"
@@ -59,7 +73,13 @@ def user():
         #print "user_display.exist", user_display.exist
         L.append(user_display)
         #print user_display.firstname,user_display.lastname,user_display.username,user_display.link_details.url
-    return dict(following=L)
+    return dict(following=L, user=logged_in)
+
+@auth.requires_login() 
+def edit_profile():
+
+    print "In edit"
+    return dict(form=auth.profile())
 
 @auth.requires_login() 
 def search():
@@ -79,18 +99,17 @@ def search():
             user_list = []
             for user in rows:
                 id = user.id;
-                query_1 = myDB.follow.follower == id
-                following = myDB(query_1).count()
-                query_1 = myDB.follow.followee == id
-                followers = myDB(query_1).count()
+                
+                followers =get_followees(myDB, id)
+
+                following = get_followers(myDB, id)
+
                 query_2 = myDB.auth_user.id == id;
                 details = myDB(query_2).select()
-                query_3 = myDB.follow.follower==auth.user_id
-                query_4 = myDB.follow.followee==id
-                query_5 = myDB.link.user_id == id
-                query_6 = myDB.link.visibility == "public"
-                public_links = myDB(query_5 & query_6).count()
-                follow_details = myDB(query_3 & query_4).select()
+                
+                public_links = get_public_links_count(myDB, id)
+                
+                follow_details = get_is_following(myDB, id, auth.user_id)
 
                 if follow_details:
                     follow = 1;
@@ -195,9 +214,9 @@ def check_if_url_exists():
     query_2 = myDB.link.url == url
     rows = myDB(query_1 & query_2).select()
     if rows:
-        print "rows"
         response.flash="Link already exists"
     else:
+        response.flash=""
         return ""
          
 
@@ -290,7 +309,7 @@ def addlink():
 
     return dict()
 
-
+@auth.requires_login() 
 def trends():
     count = myDB.link.url.count()
     q1 = myDB.link.visibility == "public"

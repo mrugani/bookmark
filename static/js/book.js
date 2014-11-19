@@ -63,6 +63,7 @@ function link_exists(val){
 function check_url(value){
 
 	//alert(value)
-	ajax("check_if_url_exists",['url'],  "link_warning");
-	node = document.getElementById("link_warning")
+	/*node = document.getElementById("link_warning")
+	node.innerHTML = ""*/
+	ajax("check_if_url_exists",['url'], null);
 }

@@ -1,11 +1,12 @@
 {{extend 'main.html'}}
+<div class="flash alert alert-danger" id="link_warning">{{=response.flash or ''}}</div>
 
 <div id="add_link" class="mainbox col-md-8">
   {{if 'message' in globals():
 
   }}
 
-    <div class="alert alert-success" id="link_success">
+    <div class="alert alert-success link_success">
 
         <a href="#" class="close" data-dismiss="alert">&times;</a>
 
@@ -14,7 +15,6 @@
     </div>
 
 {{pass}}
-<div class="flash alert alert-error">{{=response.flash or ''}}</div>
 {{
 
     url = ""
@@ -48,7 +48,7 @@
     <div class="form-group">
         <label for="url" class="col-md-3 control-label">URL</label>
         <div class="col-md-7">
-            <input type="url" class="form-control" required name="url" placeholder="www.link.com" value="{{=url}}" onblur="check_url(this.value)">
+            <input type="url" class="form-control" required name="url" placeholder="http://www.link.com" value="{{=url}}" onblur="check_url(this.value)">
 
         </div>
     </div>
@@ -79,9 +79,9 @@
     </div>    
 
     <div>
-    	<button href="#" class="btn btn-primary" id="password_modal_save"> 
+        <button href="#" class="btn btn-primary" id="password_modal_save"> 
             <span class="glyphicon glyphicon-floppy-disk" id="save"></span>
             {{=update}}</button>
-	</div>
+    </div>
     </form>
 </div>
