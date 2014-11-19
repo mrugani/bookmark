@@ -2,6 +2,17 @@
 <br>
 <br>
 <br>
+{{
+  if 'links' in globals():
+    if len(links) == 0:
+
+}}
+ <div class="col-md-6 alert alert-info col-md-offset-3">
+    <h4 style="text-align:center;color:#0040FF;"> <span class="glyphicon glyphicon-info-sign"> </span>  You have not saved any bookmarks currently. To save bookmarks, click <b><a href="addlink"> here </b></a></h4>
+</div>
+{{
+    else:
+}}
 <div class="container1 " style="margin-left:10%;" >
 <div class="panel panel-info ">
         <div class="panel-heading">
@@ -14,8 +25,7 @@
         <div class="panel-body" >
 {{
     import datetime
-    if 'links' in globals():
-       for x in links: 
+    for x in links: 
 
 }}
 
@@ -44,6 +54,7 @@
                         <p><strong>Tags: </strong>
                             {{ for t in x.get_tags():
                                 if t!="":
+                                    t = t.strip()
                             }}
                                 <span class="tags">{{=t}}</span> 
                             {{pass}}
@@ -59,6 +70,7 @@
  {{pass}}
 </div>
 
+ {{pass}}
  {{pass}}
  </div>
  </div>
