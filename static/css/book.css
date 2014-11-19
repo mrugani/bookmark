@@ -296,7 +296,7 @@ select{
 	color:#2E64FE;
 }
 
-#no_table_old_password, #no_table_new_password, #no_table_new_password2, #no_table_old_password__label, #no_table_new_password__label, #no_table_new_password2__label{
+#no_table_old_password, #old_password__error, #new_password2__error, #no_table_new_password, #no_table_new_password2, #no_table_old_password__label, #no_table_new_password__label, #no_table_new_password2__label{
 
 	margin-bottom: 4%;
 	margin-left: 20%;
@@ -309,15 +309,22 @@ select{
 	margin-top:3%;
 }
 
-.edit_profile input{
+.edit_profile > div {
 
 	margin-left: 20%;
 	margin-bottom: 3%;
 }
 
+.edit_profile input{
+
+	/*margin-left: 20%;
+	margin-bottom: 3%;*/
+}
+
 .edit_profile label{
 
-	margin-left: 54%;
+	margin-left: 50%;
+	margin-right:20%;
 	margin-top: 4%;
 }
 .username-navbar{

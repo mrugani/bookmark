@@ -38,7 +38,8 @@ function follow(id1, id2){
 	el.innerHTML = "<strong>UNFOLLOW</strong>"
 	el.className = "btn btn-warning btn-sm"
 	el.onclick = function () { unfollow(id1, id2) };
-	node = document.getElementById("follower_cnt")
+	i = "f"+id2;
+	node = document.getElementById(i)
 	val = parseInt(node.innerHTML)
 	node.textContent = val + 1;
 }
@@ -53,7 +54,8 @@ function unfollow(id1, id2){
 	el.innerHTML = "<strong>FOLLOW</strong>"
 	el.className = "btn btn-success btn-sm"
 	el.onclick = function () { follow(id1, id2) };
-	node = document.getElementById("follower_cnt")
+	i="f"+id2
+	node = document.getElementById(i)
 	val = parseInt(node.innerHTML)
 	node.textContent = val - 1;
 }

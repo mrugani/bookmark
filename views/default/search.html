@@ -71,7 +71,7 @@
 
         <div class="col-md-11">
             <div class="col-md-10 wrap-link">
-               <label class="search_display"  id="follower_cnt">{{=user.get_followers()}} </label> <label class="txt"> Followers </label>
+               <label class="search_display"  id="f{{=user.get_user_id()}}">{{=user.get_followers()}} </label> <label class="txt"> Followers </label>
                <label class="search_display">{{=user.get_followee()}} </label> <label class="txt"> Following </label>
                <label class="search_display">{{=user.get_public_links()}} </label> <label class="txt"> Public Links </label>
             </div>

@@ -22,7 +22,7 @@ def index():
     """
    
     if auth.user:
-        print "auth: " , auth.user_id
+        #print "auth: " , auth.user_id
         redirect(URL('default', 'user'))
     else:
         redirect(URL('default', 'login'))
@@ -42,7 +42,6 @@ def user():
     public_links = get_public_links_count(myDB, auth.user_id)
     private_links = get_private_links_count(myDB, auth.user_id)
     followers =get_followees(myDB, auth.user_id)
-    print "followers: " , followers
     following = get_followers(myDB, auth.user_id)
     #Taking last entry as private link
     logged_in = user_details(user_info[0].id, user_info[0].first_name, user_info[0].last_name, user_info[0].username, 0,followers,following,public_links,private_links);
@@ -78,7 +77,6 @@ def user():
 @auth.requires_login() 
 def edit_profile():
 
-    print "In edit"
     return dict(form=auth.profile())
 
 @auth.requires_login() 
@@ -92,7 +90,6 @@ def search():
 
         """Search by user"""
         if option == "Users":
-            print "User selected ", keyword
             keyword = "%"+keyword+"%"
             query = myDB.auth_user.username.like(keyword)
             rows = myDB(query).select()
@@ -115,7 +112,6 @@ def search():
                     follow = 1;
                 else:
                     follow = 0;
-                print follow
                 #Remaining- counts
                 user_det = user_details(id,details[0].first_name, details[0].last_name, user.username, 0, followers, following, public_links, follow)
                 user_det.set_joining_date(int(details[0].Joining_date))
@@ -145,7 +141,6 @@ def search():
 
         #search by URL
         elif option == "URL":
-            print "OPtion selected URL"
             keyword = "%"+keyword+"%"
             #check if keyword contains comma..
             query_1 = myDB.link.user_id == auth.user_id
@@ -186,7 +181,6 @@ def follow():
     followee = request.vars.id2;
     myDB.follow.insert(follower=follower, followee=followee)
     email_id = myDB(myDB.auth_user.id == followee).select(myDB.auth_user.email)
-    print email_id[0].email
     subject = "Bookmarks "+auth.user.username + " is following you on this.save app"
     content = ""+ "\n\n\n\n\nRegards,\n"+"Admin\nthis.save\n";
     mail.send(email_id[0].email, subject, content)
@@ -194,7 +188,6 @@ def follow():
 @auth.requires_login() 
 def unfollow():
     """Remove association from follow table """
-    print "Unfollowing"
     follower = request.vars.id1;
     followee = request.vars.id2;
     query = myDB.follow.follower==follower
@@ -206,14 +199,12 @@ def delete():
 
     """delete the link with this id"""
     #print request.env.request_method
-    print "deleting " , request.vars.id
     query = myDB.link.lid == request.vars.id;
     myDB(query).delete()
 
 @auth.requires_login() 
 def check_if_url_exists():
 
-    print "ajax call check"
     id = auth.user_id;
     url = request.vars.url;
     query_1 = myDB.link.user_id == id
@@ -233,14 +224,12 @@ def login():
     if auth.user and request.args(0)=="change_password":
         return dict(form=auth())
     if auth.user:
-        print "here1"
         redirect(URL('default', 'user'))
     #print "In login:"
     return dict(form=auth())
 
 @auth.requires_login() 
 def logout():
-    print "here"
     auth.logout()
     
 def register():
@@ -307,7 +296,6 @@ def addlink():
 
     """ Add a link from followed user """
     if request.vars.follow_lid:
-        print request.vars.follow_lid
         q1 = myDB.link.lid == request.vars.follow_lid
         r = myDB(q1).select()
         l = link(r[0].url,r[0].lid, r[0].tags, r[0].description, r[0].created_date, "private")
