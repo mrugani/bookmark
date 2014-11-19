@@ -184,6 +184,11 @@ def follow():
     follower = request.vars.id1;
     followee = request.vars.id2;
     myDB.follow.insert(follower=follower, followee=followee)
+    email_id = myDB(myDB.auth_user.id == followee).select(myDB.auth_user.email)
+    print email_id[0].email
+    subject = "Bookmarks "+auth.user.username + " is following you on this.save app"
+    content = ""+ "\n\n\n\n\nRegards,\n"+"Admin\nthis.save\n";
+    mail.send(email_id[0].email, subject, content)
 
 @auth.requires_login() 
 def unfollow():
