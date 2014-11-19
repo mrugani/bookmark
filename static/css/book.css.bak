@@ -1,0 +1,98 @@
+.navbar-default {
+	background-color: #2278d2;
+	border-color: #d6e6f2;
+}
+.navbar-default .navbar-brand {
+	color: #ffffff;
+}
+ .navbar-default .navbar-brand:focus {
+	 color: #ffffff ;
+}
+.navbar-default .navbar-brand:hover {
+    color: #ffffff;
+    background-color: #4EA5E7;
+}
+.navbar-default .navbar-text {
+	color: #ffffff;
+}
+.navbar-default .navbar-nav > li > a {
+	color: #ffffff;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+	color: #0852b9;
+}
+.navbar-default .navbar-nav > li > a:hover {
+	color: #ffffff;
+    background-color: #4EA5E7;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+	color: #0852b9;
+	background-color: #d6e6f2;
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+	color: #0852b9;
+	background-color: #d6e6f2;
+}
+.navbar-default .navbar-toggle {
+	border-color: #d6e6f2;
+}
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+	background-color: #d6e6f2;
+}
+.navbar-default .navbar-toggle .icon-bar {
+	background-color: #ffffff;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+	border-color: #ffffff;
+}
+.navbar-default .navbar-link {
+	color: #ffffff;
+}
+.navbar-default .navbar-link:hover {
+	color: #0852b9;
+}
+
+@media (max-width: 767px) {
+	.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+		color: #ffffff;
+	}
+	.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+		color: #0852b9;
+	}
+	.navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+		color: #0852b9;
+		background-color: #d6e6f2;
+	}
+}
+.navbar-default .navbar-nav > li > a:focus{
+    color: #0852b9 ;
+    background: #DAE9F4;
+}
+
+
+.nav {
+    margin-left:6%;
+}
+nav > .container-fluid {
+    margin-left:6%; 
+}
+#add_link , #ch_password {
+    margin-top: 8%;
+}
+#link_success , #password_success{
+    width:57%;
+    margin-left:26%;
+}
+
+#password_success{
+    width:48%;
+    margin-left:26%;
+}
+
+#password_error{
+	width:48%;
+    margin-left:26%;
+}	

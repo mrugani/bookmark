@@ -134,10 +134,9 @@ uncomment to load jquery-ui //-->
     
 </ul>
 <ul class="nav navbar-nav navbar-right">
-    <li class="username-navbar"><span class="glyphicon glyphicon-user" > </span>
-    {{=auth.user.username}}
+    <li class="username-navbar">
+    <a href="edit_profile"><span class="glyphicon glyphicon-user" > </span>  {{=auth.user.username}}</a>
     </li>
-    <li><a></a></li>
     <li>
     <a href="logout">
         <span class="glyphicon glyphicon-off"></span>
