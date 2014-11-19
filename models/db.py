@@ -59,7 +59,7 @@ mail.settings.server = 'smtp.gmail.com:587'
 mail.settings.sender = 'this.save.bookmark@gmail.com'
 mail.settings.login = 'this.save.bookmark@gmail.com:Admin!@#'
 ## configure auth policy
-auth.settings.registration_requires_verification = True
+auth.settings.registration_requires_verification = False
 auth.settings.registration_requires_approval = False
 auth.settings.reset_password_requires_verification = True
 auth.messages.reset_password = 'Click on the link http://' + request.env.http_host + URL(r=request,f='login',args=['reset_password']) + '/%(key)s to reset your password'
